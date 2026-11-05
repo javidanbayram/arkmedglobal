@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0c2641;
+}
+
+@theme {
+  /* ArkMED brand palette, sampled from the official logo */
+  --color-ark-50: #f1f6fb;
+  --color-ark-100: #dde8f3;
+  --color-ark-200: #b9cfe5;
+  --color-ark-300: #8aa9c9;
+  --color-ark-400: #577ca3;
+  --color-ark-500: #355d86;
+  --color-ark-600: #234a70;
+  --color-ark-700: #1a3a5c;
+  --color-ark-800: #12304f;
+  --color-ark-900: #0c2641;
+  --color-ark-950: #071729;
+
+  --color-sea-50: #f1f7f7;
+  --color-sea-100: #dfeded;
+  --color-sea-200: #c0dbdb;
+  --color-sea-300: #98c2c4;
+  --color-sea-400: #72a6a8;
+  --color-sea-500: #568b8d;
+  --color-sea-600: #447174;
+  --color-sea-700: #3a5c5f;
+  --color-sea-800: #334b4e;
+  --color-sea-900: #2d4144;
+  --color-sea-950: #182a2d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
