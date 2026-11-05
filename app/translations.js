@@ -1,0 +1,1510 @@
+export const LANGUAGES = [
+  { code: "en", label: "EN", name: "English", flag: "🇬🇧" },
+  { code: "az", label: "AZ", name: "Azərbaycan", flag: "🇦🇿" },
+  { code: "ru", label: "RU", name: "Русский", flag: "🇷🇺" },
+];
+
+export const TRANSLATIONS = {
+  en: {
+    nav: {
+      brandSub: "Global Health",
+      links: [
+        { label: "Services", href: "#services", hasMenu: true },
+        { label: "How It Works", href: "#how-it-works" },
+        { label: "Calculator", href: "#calculator", badge: "Save 70%" },
+        { label: "Why Us", href: "#why-us" },
+        { label: "Network", href: "#network", badge: "13+" },
+        { label: "FAQ", href: "#faq" },
+      ],
+      services: [
+        {
+          title: "Medical Tourism",
+          desc: "End-to-end patient travel, clinic matching & 24/7 concierge.",
+          tag: "Popular",
+          href: "#services",
+        },
+        {
+          title: "Medical Consulting",
+          desc: "Global growth strategy & accreditation for clinics.",
+          tag: "+34% Growth",
+          href: "#services",
+        },
+        {
+          title: "Healthcare Marketing",
+          desc: "Compliant international patient acquisition campaigns.",
+          tag: "+248% ROI",
+          href: "#services",
+        },
+        {
+          title: "Medical Procurement",
+          desc: "Certified equipment & supplies sourced worldwide.",
+          tag: "Direct",
+          href: "#services",
+        },
+      ],
+      conciergeBanner: "24/7 Patient & Clinic Concierge",
+      bookCall: "Book free call",
+      live: "24/7 Live",
+      getStarted: "Get Started",
+      mobileConcierge: "24/7 Global Concierge",
+    },
+    hero: {
+      badge: "Global Healthcare Opportunities",
+      titleTop: ["Bridging", "Borders", "in"],
+      titlePrefix: "Global",
+      rotatingWords: ["Healthcare", "Medicine", "Wellness", "Care"],
+      subtitle:
+        "Connecting patients, optimizing clinics, and streamlining medical procurement worldwide, all through one trusted partner.",
+      ctaPrimary: "Explore Services",
+      ctaSecondary: "Partner With Us",
+      stats: [
+        { to: 40, suffix: "+", label: "Countries" },
+        { to: 225, suffix: "+", label: "Partner clinics" },
+        { to: 40, suffix: "k", label: "Patients guided" },
+      ],
+      chips: [
+        { title: "Visa approved", sub: "Within 48 hours" },
+        { title: "4.9 / 5 rating", sub: "From 12k+ patients" },
+        { title: "Flight booked", sub: "Istanbul → Dubai" },
+      ],
+      dashboard: {
+        windowTitle: "Ark Med · Patient Connect",
+        live: "Live",
+        heading: "Your journey. All connected.",
+        sub: "From first consultation to recovery, every step in one place.",
+        steps: ["Consultation", "Travel & Stay", "Treatment"],
+        statusDone: "Completed",
+        statusActive: "In progress…",
+        statusUpcoming: "Upcoming",
+        cardTitle: "A world of care, closer to you.",
+        cardSub: "Vetted hospitals, transparent pricing, and 24/7 concierge support.",
+        progressLabel: "Journey progress",
+      },
+    },
+    services: {
+      eyebrow: "Our Services",
+      titleLine1: "One partner. A world of",
+      titleHighlight: "possibilities.",
+      subtitle:
+        "Four pillars that cover every stage of international healthcare, from patient to procurement.",
+      learnMore: "Learn more",
+      routeCities: ["Your city", "Top clinic"],
+      card1: {
+        title: "Medical Tourism",
+        desc: "Seamless global patient care and travel, from clinic matching to visas, stays, and recovery.",
+        bullets: [
+          "Hospital & specialist matching",
+          "Travel, visa & stay concierge",
+          "Post-treatment follow-up",
+        ],
+      },
+      chat: {
+        title: "Ark Med Concierge",
+        status: "Online · replies in ~3 min",
+        messages: [
+          { from: "user", text: "I need a knee replacement. Where can I go?" },
+          {
+            from: "bot",
+            text: "Matched you with 3 top orthopedic hospitals. Est. savings: 58%.",
+          },
+          { from: "user", text: "Can you arrange my travel too?" },
+          {
+            from: "bot",
+            text: "Flights, visa & hotel are booked. See you Monday ✈️",
+          },
+        ],
+      },
+      savings: {
+        title: "Typical savings abroad",
+        badge: "vs. home country",
+        items: [
+          { label: "Dental", pct: 65 },
+          { label: "Hair transplant", pct: 70 },
+          { label: "Cardiac care", pct: 55 },
+          { label: "Eye surgery", pct: 60 },
+        ],
+        stats: [
+          ["24/7", "Support"],
+          ["12", "Languages"],
+          ["3 min", "Avg. reply"],
+        ],
+      },
+      card2: {
+        title: "Medical Consulting",
+        desc: "Strategy that helps clinics grow and operate globally.",
+        badge: "+34% avg. clinic growth",
+      },
+      card3: {
+        title: "Healthcare Marketing",
+        desc: "Reach international patients with trusted, compliant campaigns.",
+      },
+      card4: {
+        title: "Medical Procurement",
+        desc: "Certified equipment and supplies, sourced and delivered.",
+        from: "Warehouse",
+        to: "Hospital",
+        order: "Order #A-2041 ·",
+        status: "In transit",
+      },
+    },
+    marquee: [
+      "Medical Tourism",
+      "Medical Consulting",
+      "Healthcare Marketing",
+      "Medical Procurement",
+      "Global Network",
+      "24/7 Concierge",
+    ],
+    howItWorks: {
+      eyebrow: "How It Works",
+      title: "Two pathways.",
+      titleHighlight: "Zero friction.",
+      tabPatient: "For Patients",
+      tabClinic: "For Clinics & Hospitals",
+      stepLabel: "Step",
+      includedLabel: "Included in this stage",
+      ctaPatient: "Start My Free Review",
+      ctaClinic: "Partner Your Clinic",
+      patient: {
+        badge: "Patient Concierge Journey",
+        steps: [
+          {
+            step: "01",
+            title: "Free Medical Board Review",
+            duration: "Day 1 · Within 24h",
+            summary:
+              "Upload your scans or medical history securely. Our specialist board matches you with the top 3 JCI-accredited hospitals.",
+            deliverables: [
+              "3 itemized hospital treatment quotes",
+              "Direct video call with lead surgeon",
+              "Transparent zero-hidden-fee guarantee",
+            ],
+            previewStat: "100% Free",
+            previewSub: "No commitment required",
+          },
+          {
+            step: "02",
+            title: "VIP Travel, Visa & 5-Star Stay",
+            duration: "Days 2–4 · Concierge",
+            summary:
+              "Our travel desk books your flights, fast-tracks medical visas, and reserves recovery-friendly 5-star partner hotels.",
+            deliverables: [
+              "Priority medical visa documentation",
+              "Private airport & clinic chauffeur",
+              "Dedicated 24/7 native-speaking host",
+            ],
+            previewStat: "Door-to-Door",
+            previewSub: "All logistics handled",
+          },
+          {
+            step: "03",
+            title: "World-Class Treatment",
+            duration: "Arrival · Procedure",
+            summary:
+              "Skip every waiting list. Arrive at your hospital with your bedside interpreter and coordinator already waiting for you.",
+            deliverables: [
+              "Zero waiting-room delays",
+              "Daily family & doctor status briefings",
+              "International medical insurance cover",
+            ],
+            previewStat: "99.4%",
+            previewSub: "Clinical success benchmark",
+          },
+          {
+            step: "04",
+            title: "Recovery & 12-Month Aftercare",
+            duration: "Post-Op · Home",
+            summary:
+              "Recover comfortably before flying home, with continuous remote check-ins and local physician handoff.",
+            deliverables: [
+              "Fit-to-fly medical clearance",
+              "Translated medical records & prescriptions",
+              "12-month scheduled video follow-ups",
+            ],
+            previewStat: "12 Months",
+            previewSub: "Continuous follow-up care",
+          },
+        ],
+      },
+      clinic: {
+        badge: "Clinic & Hospital Growth Engine",
+        steps: [
+          {
+            step: "01",
+            title: "Clinical Audit & Global Positioning",
+            duration: "Phase 1 · Weeks 1–2",
+            summary:
+              "We benchmark your specialties, streamline international patient workflows, and align pricing for high-demand corridors.",
+            deliverables: [
+              "50-point international readiness audit",
+              "JCI & ISO compliance roadmap",
+              "High-margin procedure packaging",
+            ],
+            previewStat: "Top 4%",
+            previewSub: "Accredited partner tier",
+          },
+          {
+            step: "02",
+            title: "Multilingual Acquisition Launch",
+            duration: "Phase 2 · Weeks 3–4",
+            summary:
+              "Launch compliant, high-intent patient campaigns across 13+ countries backed by our 12-language triage center.",
+            deliverables: [
+              "Localized landing funnels in 12 languages",
+              "Pre-qualified patient lead triage",
+              "Real-time CRM & ROI attribution dashboard",
+            ],
+            previewStat: "3.8× ROI",
+            previewSub: "On international marketing",
+          },
+          {
+            step: "03",
+            title: "Certified Equipment Procurement",
+            duration: "Phase 3 · Ongoing",
+            summary:
+              "Upgrade surgical and diagnostic capacity with direct-from-OEM medical equipment and customs-cleared logistics.",
+            deliverables: [
+              "Direct OEM pricing on imaging & robotics",
+              "Cold-chain & customs clearance",
+              "Biomedical installation & warranty",
+            ],
+            previewStat: "-28% Cost",
+            previewSub: "On certified medical supply",
+          },
+          {
+            step: "04",
+            title: "Predictable Global Patient Flow",
+            duration: "Phase 4 · Scale",
+            summary:
+              "Receive pre-screened, travel-ready international patients every week while ArkMED handles logistics and aftercare.",
+            deliverables: [
+              "End-to-end patient travel management",
+              "Automated cross-border billing & escrow",
+              "Quarterly executive growth reviews",
+            ],
+            previewStat: "+34% YoY",
+            previewSub: "Average clinic revenue lift",
+          },
+        ],
+      },
+    },
+    calculator: {
+      eyebrow: "Interactive Estimator",
+      title: "World-class care.",
+      titleHighlight: "A fraction of the cost.",
+      subtitle:
+        "Compare typical private healthcare prices in your region against ArkMED’s JCI-accredited all-inclusive packages.",
+      step1: "1. Compare against your region",
+      step2: "2. Select medical procedure",
+      vipTitle: "Include 5-Star Hotel, VIP Chauffeur & Interpreter",
+      vipSubSuffix: "Full airport-to-clinic concierge package",
+      breakdownBadge: "Estimated Savings Breakdown",
+      savePrefix: "Save",
+      estimatedSavings: "estimated savings",
+      forLabel: "For",
+      comparedTo: "compared to private clinics in",
+      typicalCostPrefix: "Typical",
+      typicalCostSuffix: "Private Cost",
+      arkPackageLabel: "ArkMED Accredited Package",
+      jciTag: "JCI-Accredited Hospital",
+      procOnlyTag: "Procedure Only",
+      followUpTag: "12-Mo Remote Follow-Up",
+      disclaimer: "*Exact quote confirmed after free specialist review.",
+      cta: "Lock In This Estimate",
+      regions: [
+        { id: "us", label: "United States", flag: "🇺🇸", symbol: "$", mult: 1.0, rate: 1.0 },
+        { id: "uk", label: "United Kingdom", flag: "🇬🇧", symbol: "£", mult: 0.78, rate: 0.79 },
+        { id: "eu", label: "Europe (EU)", flag: "🇪🇺", symbol: "€", mult: 0.82, rate: 0.92 },
+        { id: "ae", label: "GCC / UAE", flag: "🇦🇪", symbol: "$", mult: 0.88, rate: 1.0 },
+      ],
+      procedures: [
+        {
+          id: "dental",
+          name: "Full Dental Restoration",
+          sub: "20 Zirconia Crowns / Veneers + Implants",
+          stay: "5 Nights · Istanbul or Antalya",
+          warranty: "Lifetime Implant Warranty",
+        },
+        {
+          id: "hair",
+          name: "Sapphire FUE / DHI Hair",
+          sub: "Maximum Grafts + PRP + Post-Op Kit",
+          stay: "3 Nights · Istanbul VIP Clinic",
+          warranty: "Certified Graft Guarantee",
+        },
+        {
+          id: "ortho",
+          name: "Total Knee or Hip Replacement",
+          sub: "Robotic-Assisted Surgery + Inpatient Rehab",
+          stay: "7 Nights · JCI Hospital Suite",
+          warranty: "FDA/CE Approved Prosthetics",
+        },
+        {
+          id: "cardiac",
+          name: "Cardiac Bypass / Valve Care",
+          sub: "Minimally Invasive + ICU + Telemetry",
+          stay: "10 Nights · Accredited Heart Center",
+          warranty: "Board-Certified Cardiac Team",
+        },
+        {
+          id: "ivf",
+          name: "IVF & Fertility Package",
+          sub: "Full Cycle + ICSI + Embryo Lab",
+          stay: "14 Nights · Boutique Recovery Stay",
+          warranty: "High-Success Embryology Lab",
+        },
+        {
+          id: "eye",
+          name: "Femto-LASIK / Lens Surgery",
+          sub: "Both Eyes · Blade-Free Laser Vision",
+          stay: "2 Nights · Fast-Track Recovery",
+          warranty: "20/20 Vision Care Protocol",
+        },
+      ],
+    },
+    valueProp: [
+      {
+        eyebrow: "Why Ark Med",
+        title: "Trusted International Connections",
+        body: "We build lasting relationships with accredited hospitals, specialists, and partners worldwide so every patient and provider is matched with confidence.",
+        bullets: [
+          "Accredited hospitals only",
+          "Transparent, upfront pricing",
+          "One dedicated coordinator",
+        ],
+        cta: "Meet our network",
+        stat: { value: "98%", label: "Patient satisfaction" },
+      },
+      {
+        eyebrow: "Our Impact",
+        title: "Sustainable Healthcare Opportunities",
+        body: "Our approach strengthens local healthcare systems while expanding access, creating long-term value for clinics, communities, and patients alike.",
+        bullets: [
+          "Capacity building for clinics",
+          "Ethical, compliant partnerships",
+          "Long-term growth programs",
+        ],
+        cta: "See how we work",
+        stat: { value: "225+", label: "Clinics empowered" },
+      },
+    ],
+    network: {
+      eyebrow: "Global Reach",
+      title: "A Truly Global",
+      titleHighlight: "Healthcare Network.",
+      subtitle:
+        "Connecting hospitals, clinics, and patients across continents with one unified standard of care.",
+      stats: [
+        { value: "13", label: "Countries" },
+        { value: "225+", label: "Partner clinics" },
+        { value: "40k", label: "Patients guided" },
+      ],
+      hubBadge: "Hub",
+      partnerClinicsLabel: "Partner clinics",
+      tapPrompt: "Tap a dot or country to explore.",
+      trustedBy: "Trusted by leading healthcare partners",
+    },
+    faq: {
+      eyebrow: "Smart Triage & FAQ",
+      title: "Every answer,",
+      titleHighlight: "instantly clear.",
+      categories: [
+        "All",
+        "Visas & Travel",
+        "Pricing & Safety",
+        "Clinic Partners",
+        "Procurement",
+      ],
+      triageTitle: "Instant Concierge Triage",
+      triageSub: "12 Languages · Avg. human reply ~3 min",
+      liveBadge: "Live",
+      tapPrompt: "Tap a quick question",
+      inputPlaceholder: "Ask anything about treatment, travel, or clinics...",
+      customReplyText:
+        "Our medical coordinator team has logged your question. Click 'Connect with Coordinator' below to receive a personalized answer and treatment breakdown within 15 minutes.",
+      needReview: "Need a custom medical review?",
+      connectCta: "Connect with Coordinator",
+      quickPrompts: [
+        {
+          q: "How fast do I get a quote?",
+          a: "Within 24–48 hours! Upload your medical records or X-rays and you'll receive 3 itemized treatment plans from JCI-accredited hospitals, plus a free video call with the lead surgeon.",
+        },
+        {
+          q: "Can I bring a companion?",
+          a: "Absolutely! All our 5-star hotel packages and private VIP airport/clinic transfers accommodate a companion or family member at zero extra concierge fee.",
+        },
+        {
+          q: "How do clinics partner with you?",
+          a: "Clinics apply for our 50-point accreditation review. Once approved, we deploy localized marketing across 13+ countries and send pre-screened, travel-ready patients directly to your team.",
+        },
+        {
+          q: "Do you ship medical equipment globally?",
+          a: "Yes—we procure CE/FDA-certified equipment directly from manufacturers and deliver door-to-hospital across EMEA, APAC, and the Americas with full warranty.",
+        },
+      ],
+      items: [
+        {
+          q: "How does ArkMED vet and select partner hospitals?",
+          a: "Only the top 4% of applicants pass our 50-point clinical audit. Every partner hospital holds JCI or ISO accreditation, board-certified specialist surgeons, English-speaking care teams, and verified international outcome records.",
+          cat: "Pricing & Safety",
+        },
+        {
+          q: "Are flights, 5-star hotels, and medical visas included?",
+          a: "Yes. Our concierge desk handles priority medical visa sponsorship, private airport-to-hospital chauffeur transfers, 5-star recovery-friendly hotel stays, and a 24/7 bedside interpreter in 12+ languages.",
+          cat: "Visas & Travel",
+        },
+        {
+          q: "How are your treatment prices 50–70% lower without compromising quality?",
+          a: "Lower clinical operating costs, favorable exchange rates, and our high-volume direct agreements with flagship hospitals in Türkiye, Europe, and Asia allow us to pass institutional savings directly to patients—using the exact same FDA/CE-certified implants and technology.",
+          cat: "Pricing & Safety",
+        },
+        {
+          q: "What happens after I fly back home?",
+          a: "Your care continues for 12 months after returning home. You receive translated medical records, fit-to-fly clearance, scheduled video follow-ups with your surgeon, and local physician coordination.",
+          cat: "Visas & Travel",
+        },
+        {
+          q: "How can our clinic or hospital join the ArkMED network?",
+          a: "We partner with accredited clinics looking to scale international patient volume or upgrade equipment. After a 2-week clinical audit, we launch multilingual patient acquisition campaigns and manage all cross-border travel and triage.",
+          cat: "Clinic Partners",
+        },
+        {
+          q: "Can hospitals source certified medical equipment through ArkMED?",
+          a: "Yes. Our Medical Procurement division sources diagnostic imaging, surgical robotics, ICU monitors, and certified consumables directly from global OEMs with turnkey customs clearance and biomedical warranty support.",
+          cat: "Procurement",
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "Get Started",
+      title: "Ready to transform your",
+      titleHighlight: "healthcare journey?",
+      subtitle:
+        "Let's talk about how Ark Med can connect you to the care, clients, and capabilities you need.",
+      placeholder: "you@clinic.com",
+      button: "Schedule a Consultation",
+      sent: "We'll be in touch!",
+      note: "No spam. Reply within 24 hours.",
+    },
+    footer: {
+      tagline:
+        "Bridging borders to make world-class healthcare accessible to everyone.",
+      location: "Istanbul, Türkiye",
+      cols: [
+        {
+          title: "Services",
+          links: ["Medical Tourism", "Consulting", "Marketing", "Procurement"],
+        },
+        { title: "Company", links: ["About", "Network", "Careers", "Contact"] },
+        { title: "Resources", links: ["Blog", "Case Studies", "FAQ", "Support"] },
+      ],
+      rights: "© 2026 Ark Med Global Health and Travel. All rights reserved.",
+      privacy: "Privacy",
+      terms: "Terms",
+    },
+  },
+
+  /* ------------------------------------------------------------------------ */
+  /*  Azerbaijani (AZ)                                                        */
+  /* ------------------------------------------------------------------------ */
+  az: {
+    nav: {
+      brandSub: "Qlobal Səhiyyə",
+      links: [
+        { label: "Xidmətlər", href: "#services", hasMenu: true },
+        { label: "Necə İşləyir", href: "#how-it-works" },
+        { label: "Kalkulyator", href: "#calculator", badge: "70% Qənaət" },
+        { label: "Niyə Biz", href: "#why-us" },
+        { label: "Şəbəkə", href: "#network", badge: "13+" },
+        { label: "FAQ", href: "#faq" },
+      ],
+      services: [
+        {
+          title: "Tibbi Turizm",
+          desc: "Tam pasiyent səyahəti, klinika seçimi və 24/7 konsyerj dəstəyi.",
+          tag: "Populyar",
+          href: "#services",
+        },
+        {
+          title: "Tibbi Konsaltinq",
+          desc: "Klinikalar üçün qlobal böyümə strategiyası və akkreditasiya.",
+          tag: "+34% Artım",
+          href: "#services",
+        },
+        {
+          title: "Səhiyyə Marketinqi",
+          desc: "Beynəlxalq pasiyent cəlbi üçün effektiv kampaniyalar.",
+          tag: "+248% ROI",
+          href: "#services",
+        },
+        {
+          title: "Tibbi Təchizat",
+          desc: "Sertifikatlı tibbi avadanlıqların qlobal təدارükü və çatdırılması.",
+          tag: "Birbaşa",
+          href: "#services",
+        },
+      ],
+      conciergeBanner: "24/7 Pasiyent və Klinika Konsyerji",
+      bookCall: "Pulsuz zəng sifarişi",
+      live: "24/7 Canlı",
+      getStarted: "Başlayın",
+      mobileConcierge: "24/7 Qlobal Konsyerj",
+    },
+    hero: {
+      badge: "Qlobal Səhiyyə İmkanları",
+      titleTop: ["Qlobal", "Sərhədləri", "Aşan"],
+      titlePrefix: "Müasir",
+      rotatingWords: ["Səhiyyə", "Tibb", "Sağlamlıq", "Qayğı"],
+      subtitle:
+        "Pasiyentləri ən yaxşı xəstəxanalarla birləşdirir, klinikaları inkişaf etdirir və tibbi təchizatı vahid etibarlı tərəfdaş vasitəsilə optimallaşdırırıq.",
+      ctaPrimary: "Xidmətlərə Baxın",
+      ctaSecondary: "Tərəfdaş Olun",
+      stats: [
+        { to: 40, suffix: "+", label: "Ölkə" },
+        { to: 225, suffix: "+", label: "Tərəfdaş klinika" },
+        { to: 40, suffix: "k", label: "Yönləndirilən pasiyent" },
+      ],
+      chips: [
+        { title: "Viza təsdiqləndi", sub: "48 saat ərzində" },
+        { title: "4.9 / 5 reytinq", sub: "12k+ pasiyent rəyi" },
+        { title: "Uçuş bron edildi", sub: "İstanbul → Bakı" },
+      ],
+      dashboard: {
+        windowTitle: "Ark Med · Pasiyent Portalı",
+        live: "Canlı",
+        heading: "Səyahətiniz. Tam nəzarətdə.",
+        sub: "İlk konsultasiyadan tam sağalmayadək hər addım bir məkanda.",
+        steps: ["Konsultasiya", "Səyahət və Otel", "Müalicə"],
+        statusDone: "Tamamlandı",
+        statusActive: "İcra olunur…",
+        statusUpcoming: "Növbəti",
+        cardTitle: "Dünya səviyyəli tibb, sizə daha yaxın.",
+        cardSub: "Seçilmiş xəstəxanalar, şəffaf qiymətlər və 24/7 konsyerj dəstəyi.",
+        progressLabel: "Prosesin gedişatı",
+      },
+    },
+    services: {
+      eyebrow: "Xidmətlərimiz",
+      titleLine1: "Bir tərəfdaş. Sonsuz",
+      titleHighlight: "imkanlar dünyası.",
+      subtitle:
+        "Beynəlxalq səhiyyənin hər mərhələsini əhatə edən dörd əsas istiqamət — pasiyentdən tibbi təchizata qədər.",
+      learnMore: "Ətraflı",
+      routeCities: ["Sizin şəhər", "Aparıcı klinika"],
+      card1: {
+        title: "Tibbi Turizm",
+        desc: "Klinika seçimindən viza, 5 ulduzlu otel və bərpa prosesinədək qüsursuz qlobal pasiyent qayğısı.",
+        bullets: [
+          "Xəstəxana və mütəxəssis seçimi",
+          "Səyahət, viza və otel konsyerji",
+          "Müalicədən sonrakı 12 aylıq nəzarət",
+        ],
+      },
+      chat: {
+        title: "Ark Med Konsyerj",
+        status: "Onlayn · ~3 dəq ərzində cavab",
+        messages: [
+          { from: "user", text: "Diz протеzi əməliyyatı lazımdır. Hara müraciət edə bilərəm?" },
+          {
+            from: "bot",
+            text: "Sizi 3 aparıcı ortopediya xəstəxanası ilə uyğunlaşdırdıq. Qənaət: 58%.",
+          },
+          { from: "user", text: "Səyahətimi də təşkil edirsiniz?" },
+          {
+            from: "bot",
+            text: "Aviabilet, viza və otel hazırdır. Bazar ertəsi görüşənədək ✈️",
+          },
+        ],
+      },
+      savings: {
+        title: "Xaricdə orta qənaət",
+        badge: "yerli qiymətlərlə müqayisədə",
+        items: [
+          { label: "Stomatologiya", pct: 65 },
+          { label: "Saç əkimi", pct: 70 },
+          { label: "Kardiologiya", pct: 55 },
+          { label: "Göz cərrahiyyəsi", pct: 60 },
+        ],
+        stats: [
+          ["24/7", "Dəstək"],
+          ["12", "Dil"],
+          ["3 dəq", "Orta cavab"],
+        ],
+      },
+      card2: {
+        title: "Tibbi Konsaltinq",
+        desc: "Klinikaların qlobal miqyasda böyüməsinə kömək edən strategiya.",
+        badge: "+34% orta klinika böyüməsi",
+      },
+      card3: {
+        title: "Səhiyyə Marketinqi",
+        desc: "Etibarlı və uyğun kampaniyalarla xarici pasiyentlərə çatın.",
+      },
+      card4: {
+        title: "Tibbi Təchizat",
+        desc: "Sertifikatlı tibbi avadanlıq və ləvazimatların tədarükü.",
+        from: "Anbar",
+        to: "Xəstəxana",
+        order: "Sifariş #A-2041 ·",
+        status: "Yoldadır",
+      },
+    },
+    marquee: [
+      "Tibbi Turizm",
+      "Tibbi Konsaltinq",
+      "Səhiyyə Marketinqi",
+      "Tibbi Təchizat",
+      "Qlobal Şəbəkə",
+      "24/7 Konsyerj",
+    ],
+    howItWorks: {
+      eyebrow: "Necə İşləyir",
+      title: "İki istiqamət.",
+      titleHighlight: "Sıfır maneə.",
+      tabPatient: "Pasiyentlər Üçün",
+      tabClinic: "Klinikalar və Xəstəxanalar Üçün",
+      stepLabel: "Addım",
+      includedLabel: "Bu mərhələyə daxildir",
+      ctaPatient: "Pulsuz Müayinəyə Başla",
+      ctaClinic: "Klinikanızı Qoşun",
+      patient: {
+        badge: "Pasiyent Konsyerj Səyahəti",
+        steps: [
+          {
+            step: "01",
+            title: "Pulsuz Tibbi Konsilium Rəyi",
+            duration: "Gün 1 · 24 saat ərzində",
+            summary:
+              "Analiz və ya MRT nəticələrinizi təhlükəsiz yükləyin. Mütəxəssis şuramız sizi ən yaxşı 3 JCI akkreditasiyalı xəstəxana ilə uyğunlaşdırır.",
+            deliverables: [
+              "3 xəstəxanadan detallı müalicə təklifi",
+              "Baş cərrahla birbaşa video-konsultasiya",
+              "Gizli ödənişsiz şəffaf qiymət zəmanəti",
+            ],
+            previewStat: "100% Pulsuz",
+            previewSub: "Heç bir öhdəlik olmadan",
+          },
+          {
+            step: "02",
+            title: "VIP Səyahət, Viza və 5-Ulduzlu Otel",
+            duration: "Gün 2–4 · Konsyerj",
+            summary:
+              "Səyahət şöbəmiz aviabiletlərinizi bron edir, tibbi vizanı sürətləndirir və 5 ulduzlu tərəfdaş otellərdə yer ayırır.",
+            deliverables: [
+              "Sürətləndirilmiş tibbi viza sənədləşməsi",
+              "Aeroport-klinika VIP sürücü transferi",
+              "Ana dilinizdə danışan 24/7 koordinator",
+            ],
+            previewStat: "Qapıdan-Qapıya",
+            previewSub: "Bütün logistika həll olunur",
+          },
+          {
+            step: "03",
+            title: "Dünya Səviyyəli Müalicə",
+            duration: "Gəliş · Prosedur",
+            summary:
+              "Növbə gözləmədən xəstəxanaya daxil olun. Tərcüməçi və şəxsi koordinatorunuz sizi xəstəxanada qarşılayır.",
+            deliverables: [
+              "Gözləmə zalında sıfır gecikmə",
+              "Ailə üçün gündəlik həkim məlumatlandırması",
+              "Beynəlxalq tibbi sığorta təminatı",
+            ],
+            previewStat: "99.4%",
+            previewSub: "Klinik uğur göstəricisi",
+          },
+          {
+            step: "04",
+            title: "Bərpa və 12 Aylıq Nəzarət",
+            duration: "Əməliyyatdan sonra · Ev",
+            summary:
+              "Evə qayıtmazdan əvvəl rahat bərpa keçin və qayıtdıqdan sonra 12 ay ərzində onlayn həkim nəzarətində qalın.",
+            deliverables: [
+              "Uçuşa yararlılıq tibbi arayışı",
+              "Tərcümə edilmiş epikriz və reseptlər",
+              "12 aylıq planlı video-müayinələr",
+            ],
+            previewStat: "12 Ay",
+            previewSub: "Davamlı həkim nəzarəti",
+          },
+        ],
+      },
+      clinic: {
+        badge: "Klinika və Xəstəxana Böyümə Mühərriki",
+        steps: [
+          {
+            step: "01",
+            title: "Klinik Audit və Qlobal Mövqelənmə",
+            duration: "Mərhələ 1 · Həftə 1–2",
+            summary:
+              "İxtisaslarınızı təhlil edir, beynəlxalq pasiyent axınını optimallaşdırır və yüksək tələbatlı bazarlar üçün paketlər hazırlayırıq.",
+            deliverables: [
+              "50 bəndlik beynəlxalq hazırlıq auditi",
+              "JCI və ISO uyğunluq yol xəritəsi",
+              "Yüksək marjalı prosedur paketlənməsi",
+            ],
+            previewStat: "Top 4%",
+            previewSub: "Akkreditasiyalı tərəfdaş səviyyəsi",
+          },
+          {
+            step: "02",
+            title: "Çoxdilli Pasiyent Cəlbi Kampaniyası",
+            duration: "Mərhələ 2 · Həftə 3–4",
+            summary:
+              "12 dildə danışan çağrı mərkəzimizin dəstəyi ilə 13+ ölkədə hədəfli tibbi marketinq kampaniyaları başladırıq.",
+            deliverables: [
+              "12 dildə локаllaşdırılmış müraciət kanalları",
+              "İlkin tibbi çeşidləmə və pasiyent seçimi",
+              "Real-vaxt CRM və ROI analitika paneli",
+            ],
+            previewStat: "3.8× ROI",
+            previewSub: "Beynəlxalq marketinq gəliri",
+          },
+          {
+            step: "03",
+            title: "Sertifikatlı Avadanlıq Təchizatı",
+            duration: "Mərhələ 3 · Davamlı",
+            summary:
+              "Cərrahi və diaqnostik bazanızı birbaşa istehsalçıdan (OEM) gələn avadanlıqlar və gömrük dəstəyi ilə yeniləyin.",
+            deliverables: [
+              "MRT, KT və robotik sistemlərdə birbaşa OEM qiyməti",
+              "Soyuq zəncir və gömrük rəsmiləşdirilməsi",
+              "Biotibbi quraşdırma və rəsmi zəmanət",
+            ],
+            previewStat: "-28% Xərc",
+            previewSub: "Sertifikatlı tibbi təchizatda",
+          },
+          {
+            step: "04",
+            title: "Davamlı Beynəlxalq Pasiyent Axını",
+            duration: "Mərhələ 4 · Miqyaslanma",
+            summary:
+              "ArkMED bütün səyahət və logistikanı idarə edərkən, hər həftə müalicəyə hazır xarici pasiyentləri qəbul edin.",
+            deliverables: [
+              "Pasiyent səyahətinin tam idarə olunması",
+              "Beynəlxalq ödəniş və hesablaşma sistemi",
+              "Rüblük strateji böyümə hesabatları",
+            ],
+            previewStat: "+34% İllik",
+            previewSub: "Orta klinika gəlir artımı",
+          },
+        ],
+      },
+    },
+    calculator: {
+      eyebrow: "İnteraktiv Kalkulyator",
+      title: "Dünya səviyyəli tibb.",
+      titleHighlight: "Daha sərfəli büdcə ilə.",
+      subtitle:
+        "Regionunuzdakı özəl klinika qiymətlərini ArkMED-in JCI akkreditasiyalı 'hər şey daxil' paketləri ilə müqayisə edin.",
+      step1: "1. Müqayisə üçün region seçin",
+      step2: "2. Tibbi proseduru seçin",
+      vipTitle: "5-Ulduzlu Otel, VIP Transfer və Tərcüməçi Daxil Et",
+      vipSubSuffix: "Aeroportdan klinikaya tam konsyerj paketi",
+      breakdownBadge: "Təxmini Qənaət Hesablaması",
+      savePrefix: "Qənaət",
+      estimatedSavings: "təxmini qənaət",
+      forLabel: "Prosedur:",
+      comparedTo: "özəl klinikalarla müqayisədə —",
+      typicalCostPrefix: "Orta",
+      typicalCostSuffix: "Özəl Klinika Qiyməti",
+      arkPackageLabel: "ArkMED Akkreditasiyalı Paket",
+      jciTag: "JCI Akkreditasiyalı Xəstəxana",
+      procOnlyTag: "Yalnız Prosedur",
+      followUpTag: "12 Ay Onlayn Nəzarət",
+      disclaimer: "*Dəqiq qiymət pulsuz həkim baxışından sonra təsdiqlənir.",
+      cta: "Bu Qiyməti Bron Et",
+      regions: [
+        { id: "us", label: "ABŞ", flag: "🇺🇸", symbol: "$", mult: 1.0, rate: 1.0 },
+        { id: "uk", label: "Böyük Britaniya", flag: "🇬🇧", symbol: "£", mult: 0.78, rate: 0.79 },
+        { id: "eu", label: "Avropa (Aİ)", flag: "🇪🇺", symbol: "€", mult: 0.82, rate: 0.92 },
+        { id: "ae", label: "BƏƏ / Körfəz", flag: "🇦🇪", symbol: "$", mult: 0.88, rate: 1.0 },
+      ],
+      procedures: [
+        {
+          id: "dental",
+          name: "Tam Stomatoloji Bərpa",
+          sub: "20 Zirkon Qapaq / Vinir + İmplantlar",
+          stay: "5 Gecə · İstanbul və ya Antalya",
+          warranty: "Ömürlük İmplant Zəmanəti",
+        },
+        {
+          id: "hair",
+          name: "Safir FUE / DHI Saç Əkimi",
+          sub: "Maksimum Qraft + PRP + Baxım Dəsti",
+          stay: "3 Gecə · İstanbul VIP Klinika",
+          warranty: "Sertifikatlı Qraft Zəmanəti",
+        },
+        {
+          id: "ortho",
+          name: "Diz və ya Bud-Çanaq Protezi",
+          sub: "Robotik Cərrahiyyə + Stasionar Reabilitasiya",
+          stay: "7 Gecə · JCI Xəstəxana Lyuks Palata",
+          warranty: "FDA/CE Təsdiqli Protezlər",
+        },
+        {
+          id: "cardiac",
+          name: "Ürək Şuntlama / Qapaq Əməliyyatı",
+          sub: "Minimal İnvaziv + Reanimasiya + Telemetriya",
+          stay: "10 Gecə · Akkreditasiyalı Ürək Mərkəzi",
+          warranty: "Beynəlxalq Sertifikatlı Kardiocərrahlar",
+        },
+        {
+          id: "ivf",
+          name: "EKO (IVF) və Sonsuzluq Müalicəsi",
+          sub: "Tam Tsikl + ICSI + Embriologiya Lab",
+          stay: "14 Gecə · Rahat Bərpa Oteli",
+          warranty: "Yüksək Uğurlu Embriologiya Mərkəzi",
+        },
+        {
+          id: "eye",
+          name: "Femto-LASIK / Linza Cərrahiyyəsi",
+          sub: "Hər İki Göz · Bıçaqsız Lazer Korreksiyası",
+          stay: "2 Gecə · Sürətli Bərpa",
+          warranty: "20/20 Görmə Protokolu",
+        },
+      ],
+    },
+    valueProp: [
+      {
+        eyebrow: "Niyə Ark Med",
+        title: "Etibarlı Beynəlxalq Əlaqələr",
+        body: "Hər bir pasiyent və tibb müəssisəsinin tam əminliklə uyğunlaşdırılması üçün dünyanın akkreditasiyalı xəstəxanaları və mütəxəssisləri ilə uzunmüddətli tərəfdaşlıq qururuq.",
+        bullets: [
+          "Yalnız akkreditasiyalı xəstəxanalar",
+          "Şəffaf və öncədən bəlli qiymətlər",
+          "Fərdi tibbi koordinator dəstəyi",
+        ],
+        cta: "Şəbəkəmizlə tanış olun",
+        stat: { value: "98%", label: "Pasiyent məmnuniyyəti" },
+      },
+      {
+        eyebrow: "Təsirimiz",
+        title: "Dayanıqlı Səhiyyə İmkanları",
+        body: "Yanaşmamız yerli səhiyyə sistemlərini gücləndirərkən qlobal tibbi əlçatanlığı artırır — klinikalar, icmalar və pasiyentlər üçün uzunmüddətli dəyər yaradır.",
+        bullets: [
+          "Klinikalar üçün potensialın artırılması",
+          "Etik və beynəlxalq standartlara uyğun tərəfdaşlıq",
+          "Uzunmüddətli inkişaf proqramları",
+        ],
+        cta: "Necə işlədiyimizi görün",
+        stat: { value: "225+", label: "Gücləndirilmiş klinika" },
+      },
+    ],
+    network: {
+      eyebrow: "Qlobal Əhatə",
+      title: "Həqiqətən Qlobal",
+      titleHighlight: "Səhiyyə Şəbəkəsi.",
+      subtitle:
+        "Qitələr üzrə xəstəxanaları, klinikaları və pasiyentləri vahid yüksək tibbi standart ətrafında birləşdiririk.",
+      stats: [
+        { value: "13", label: "Ölkə" },
+        { value: "225+", label: "Tərəfdaş klinika" },
+        { value: "40k", label: "Yönləndirilən pasiyent" },
+      ],
+      hubBadge: "Mərkəz",
+      partnerClinicsLabel: "Tərəfdaş klinikalar",
+      tapPrompt: "Ətraflı məlumat üçün nöqtəyə və ya ölkəyə toxunun.",
+      trustedBy: "Aparıcı səhiyyə tərəfdaşlarının seçimi",
+    },
+    faq: {
+      eyebrow: "Ağıllı Sorğu və FAQ",
+      title: "Hər suala,",
+      titleHighlight: "dərhal aydın cavab.",
+      categories: [
+        "Hamısı",
+        "Viza və Səyahət",
+        "Qiymət və Təhlükəsizlik",
+        "Tərəfdaş Klinikalar",
+        "Təchizat",
+      ],
+      triageTitle: "Ani Konsyerj Köməkçisi",
+      triageSub: "12 Dil · Koordinator cavabı ~3 dəq",
+      liveBadge: "Canlı",
+      tapPrompt: "Hazır suallardan birini seçin",
+      inputPlaceholder: "Müalicə, səyahət və ya klinikalar barədə soruşun...",
+      customReplyText:
+        "Tibbi koordinator komandamız sualınızı qeydə aldı. 15 dəqiqə ərzində fərdi cavab və müalicə planı almaq üçün aşağıdakı 'Koordinatorla Əlaqə' düyməsinə klikləyin.",
+      needReview: "Fərdi tibbi rəy lazımdır?",
+      connectCta: "Koordinatorla Əlaqə",
+      quickPrompts: [
+        {
+          q: "Qiymət təklifini nə qədər tez alıram?",
+          a: "24–48 saat ərzində! Tibbi sənədlərinizi və ya rentgen nəticələrinizi göndərin — JCI akkreditasiyalı 3 xəstəxanadan detallı müalicə planı və baş cərrahla pulsuz video-zəng əldə edin.",
+        },
+        {
+          q: "Yaxınımı özümlə gətirə bilərəm?",
+          a: "Əlbəttə! Bütün 5 ulduzlu otel paketlərimiz və VIP aeroport/klinika transferlərimiz əlavə konsyerj haqqı olmadan 1 müşayiətçi şəxsi əhatə edir.",
+        },
+        {
+          q: "Klinikalar sizinlə necə əməkdaşlıq edir?",
+          a: "Klinikalar 50 bəndlik akkreditasiya yoxlamamızdan keçir. Təsdiqləndikdən sonra 13+ ölkədə marketinq başladır və müalicəyə hazır pasiyentləri birbaşa klinikanıza yönləndiririk.",
+        },
+        {
+          q: "Tibbi avadanlıqları xaricdən çatdırırsınız?",
+          a: "Bəli — CE/FDA sertifikatlı tibbi avadanlıqları birbaşa istehsalçılardan tədarük edir, gömrük rəsmiləşdirməsi və rəsmi zəmanətlə xəstəxananıza çatdırırıq.",
+        },
+      ],
+      items: [
+        {
+          q: "ArkMED tərəfdaş xəstəxanaları necə seçir və yoxlayır?",
+          a: "Müraciət edən klinikaların yalnız ən yaxşı 4%-i 50 bəndlik klinik auditimizdən keçir. Hər bir tərəfdaş xəstəxana JCI və ya ISO akkreditasiyasına, beynəlxalq sertifikatlı cərrahlara və təsdiqlənmiş uğur statistikasına malikdir.",
+          cat: "Qiymət və Təhlükəsizlik",
+        },
+        {
+          q: "Aviabilet, 5 ulduzlu otel və tibbi viza paketə daxildir?",
+          a: "Bəli. Konsyerj şöbəmiz sürətləndirilmiş tibbi viza dəstəyi, şəxsi sürücü ilə aeroport-xəstəxana transferləri, 5 ulduzlu oteldə qalma və 12+ dildə 24/7 tərcüməçi təmin edir.",
+          cat: "Viza və Səyahət",
+        },
+        {
+          q: "Keyfiyyəti itirmədən qiymətlər necə 50–70% daha sərfəlidir?",
+          a: "Türkiyə, Avropa və Asiyanın aparıcı xəstəxanaları ilə yüksək həcmli birbaşa müqavilələrimiz sayəsində eyni FDA/CE sertifikatlı implant və texnologiyalardan istifadə etməklə institusional endirimləri birbaşa pasiyentlərə ötürürük.",
+          cat: "Qiymət və Təhlükəsizlik",
+        },
+        {
+          q: "Evə qayıtdıqdan sonra nəzarət necə davam edir?",
+          a: "Müalicədən sonrakı qayğımız 12 ay davam edir. Siz tərcümə olunmuş tibbi sənədlər, uçuş icazəsi, cərrahınızla planlı video-zənglər və yerli həkiminizlə koordinasiya əldə edirsiniz.",
+          cat: "Viza və Səyahət",
+        },
+        {
+          q: "Klinika və ya xəstəxanamız ArkMED şəbəkəsinə necə qoşula bilər?",
+          a: "Beynəlxalq pasiyent həcmini artırmaq və ya avadanlıq bazasını yeniləmək istəyən akkreditasiyalı klinikalarla əməkdaşlıq edirik. 2 həftəlik auditdən sonra çoxdilli pasiyent cəlbi kampaniyalarına başlayırıq.",
+          cat: "Tərəfdaş Klinikalar",
+        },
+        {
+          q: "Xəstəxanalar ArkMED vasitəsilə sertifikatlı tibbi avadanlıq sifariş edə bilər?",
+          a: "Bəli. Tibbi Təchizat bölməmiz diaqnostik görüntüləmə (MRT/KT), cərrahi robotika, reanimasiya monitorları və sərfiyyat materiallarını birbaşa qlobal istehsalçılardan tam gömrük və zəmanət dəstəyi ilə təmin edir.",
+          cat: "Təchizat",
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "Başlayın",
+      title: "Səhiyyə səyahətinizi",
+      titleHighlight: "dəyişməyə hazırsınız?",
+      subtitle:
+        "Ark Med-in sizi ehtiyac duyduğunuz müalicə, pasiyentlər və tibbi imkanlarla necə birləşdirə biləcəyini müzakirə edək.",
+      placeholder: "siz@klinika.az",
+      button: "Konsultasiya Təyin Et",
+      sent: "Tezliklə əlaqə saxlayacağıq!",
+      note: "Spam yoxdur. 24 saat ərzində cavab.",
+    },
+    footer: {
+      tagline:
+        "Dünya səviyyəli səhiyyəni hər kəs üçün əlçatan etmək məqsədilə sərhədləri aşırıq.",
+      location: "İstanbul, Türkiyə",
+      cols: [
+        {
+          title: "Xidmətlər",
+          links: ["Tibbi Turizm", "Konsaltinq", "Marketinq", "Təchizat"],
+        },
+        { title: "Şirkət", links: ["Haqqımızda", "Şəbəkə", "Karyera", "Əlaqə"] },
+        { title: "Resurslar", links: ["Bloq", "Uğur Hekayələri", "FAQ", "Dəstək"] },
+      ],
+      rights: "© 2026 Ark Med Global Health and Travel. Bütün hüquqlar qorunur.",
+      privacy: "Məxfilik",
+      terms: "Şərtlər",
+    },
+  },
+
+  /* ------------------------------------------------------------------------ */
+  /*  Russian (RU)                                                            */
+  /* ------------------------------------------------------------------------ */
+  ru: {
+    nav: {
+      brandSub: "Глобальная Медицина",
+      links: [
+        { label: "Услуги", href: "#services", hasMenu: true },
+        { label: "Как это работает", href: "#how-it-works" },
+        { label: "Калькулятор", href: "#calculator", badge: "-70%" },
+        { label: "Почему мы", href: "#why-us" },
+        { label: "Сеть", href: "#network", badge: "13+" },
+        { label: "FAQ", href: "#faq" },
+      ],
+      services: [
+        {
+          title: "Медицинский туризм",
+          desc: "Подбор клиник, организация перелета и консьерж 24/7.",
+          tag: "Популярно",
+          href: "#services",
+        },
+        {
+          title: "Медконсалтинг",
+          desc: "Стратегия глобального роста и аккредитация клиник.",
+          tag: "+34% Рост",
+          href: "#services",
+        },
+        {
+          title: "Медмаркетинг",
+          desc: "Привлечение иностранных пациентов из 13+ стран.",
+          tag: "+248% ROI",
+          href: "#services",
+        },
+        {
+          title: "Медснабжение",
+          desc: "Прямые поставки сертифицированного медоборудования.",
+          tag: "Напрямую",
+          href: "#services",
+        },
+      ],
+      conciergeBanner: "Круглосуточный консьерж для пациентов и клиник",
+      bookCall: "Бесплатный звонок",
+      live: "24/7 Онлайн",
+      getStarted: "Начать",
+      mobileConcierge: "24/7 Глобальный консьерж",
+    },
+    hero: {
+      badge: "Возможности глобального здравоохранения",
+      titleTop: ["Медицина", "без", "границ:"],
+      titlePrefix: "Мировая",
+      rotatingWords: ["Медицина", "Хирургия", "Забота", "Терапия"],
+      subtitle:
+        "Соединяем пациентов с лучшими госпиталями, развиваем клиники и оптимизируем поставки медицинского оборудования по всему миру.",
+      ctaPrimary: "Наши услуги",
+      ctaSecondary: "Стать партнером",
+      stats: [
+        { to: 40, suffix: "+", label: "Стран" },
+        { to: 225, suffix: "+", label: "Клиник-партнеров" },
+        { to: 40, suffix: "k", label: "Пациентов" },
+      ],
+      chips: [
+        { title: "Виза одобрена", sub: "За 48 часов" },
+        { title: "Рейтинг 4.9 / 5", sub: "12 000+ пациентов" },
+        { title: "Перелет оформлен", sub: "Стамбул → Дубай" },
+      ],
+      dashboard: {
+        windowTitle: "Ark Med · Портал пациента",
+        live: "Онлайн",
+        heading: "Ваш маршрут здоровья в одном окне.",
+        sub: "От первой консультации до полного восстановления — каждый шаг под контролем.",
+        steps: ["Консультация", "Перелет и отель", "Лечение"],
+        statusDone: "Завершено",
+        statusActive: "В процессе…",
+        statusUpcoming: "Ожидается",
+        cardTitle: "Мировая медицина ближе, чем кажется.",
+        cardSub: "Проверенные госпитали, прозрачные цены и поддержка 24/7.",
+        progressLabel: "Прогресс маршрута",
+      },
+    },
+    services: {
+      eyebrow: "Наши услуги",
+      titleLine1: "Один партнер. Мир",
+      titleHighlight: "возможностей.",
+      subtitle:
+        "Четыре ключевых направления, охватывающих все этапы международного здравоохранения — от лечения до оснащения клиник.",
+      learnMore: "Подробнее",
+      routeCities: ["Ваш город", "Топ-клиника"],
+      card1: {
+        title: "Медицинский туризм",
+        desc: "Полная организация лечения за рубежом: от подбора госпиталя до визы, отеля 5* и реабилитации.",
+        bullets: [
+          "Подбор госпиталя и профильного хирурга",
+          "Виза, перелет, VIP-трансфер и проживание",
+          "Наблюдение врача в течение 12 месяцев",
+        ],
+      },
+      chat: {
+        title: "Консьерж Ark Med",
+        status: "Онлайн · ответ ~3 мин",
+        messages: [
+          { from: "user", text: "Мне нужна замена коленного сустава. Куда можно поехать?" },
+          {
+            from: "bot",
+            text: "Подобрали 3 ведущих ортопедических центра. Экономия: 58%.",
+          },
+          { from: "user", text: "Вы организуете перелет и проживание?" },
+          {
+            from: "bot",
+            text: "Билеты, виза и отель 5* забронированы. Ждем вас в понедельник ✈️",
+          },
+        ],
+      },
+      savings: {
+        title: "Средняя экономия за рубежом",
+        badge: "по сравнению с вашей страной",
+        items: [
+          { label: "Стоматология", pct: 65 },
+          { label: "Пересадка волос", pct: 70 },
+          { label: "Кардиохирургия", pct: 55 },
+          { label: "Микрохирургия глаза", pct: 60 },
+        ],
+        stats: [
+          ["24/7", "Поддержка"],
+          ["12", "Языков"],
+          ["3 мин", "Ответ"],
+        ],
+      },
+      card2: {
+        title: "Медицинский консалтинг",
+        desc: "Стратегии международного роста и аккредитации для клиник.",
+        badge: "+34% средний рост клиник",
+      },
+      card3: {
+        title: "Медицинский маркетинг",
+        desc: "Привлечение иностранных пациентов через проверенные каналы.",
+      },
+      card4: {
+        title: "Медицинское снабжение",
+        desc: "Поставка сертифицированного оборудования и расходных материалов.",
+        from: "Склад OEM",
+        to: "Госпиталь",
+        order: "Заказ #A-2041 ·",
+        status: "В пути",
+      },
+    },
+    marquee: [
+      "Медицинский туризм",
+      "Медконсалтинг",
+      "Медмаркетинг",
+      "Медснабжение",
+      "Глобальная сеть",
+      "Консьерж 24/7",
+    ],
+    howItWorks: {
+      eyebrow: "Как это работает",
+      title: "Два направления.",
+      titleHighlight: "Ноль сложностей.",
+      tabPatient: "Для пациентов",
+      tabClinic: "Для клиник и госпиталей",
+      stepLabel: "Шаг",
+      includedLabel: "Включено на этом этапе",
+      ctaPatient: "Бесплатный разбор случая",
+      ctaClinic: "Подключить клинику",
+      patient: {
+        badge: "Маршрут пациента с консьержем",
+        steps: [
+          {
+            step: "01",
+            title: "Бесплатный консилиум врачей",
+            duration: "День 1 · За 24 часа",
+            summary:
+              "Загрузите снимки или выписки. Наш врачебный совет подберет 3 лучших госпиталя с аккредитацией JCI.",
+            deliverables: [
+              "3 детальных плана лечения со сметой",
+              "Прямой видеозвонок с ведущим хирургом",
+              "Гарантия фиксированной цены без доплат",
+            ],
+            previewStat: "100% Бесплатно",
+            previewSub: "Без обязательств",
+          },
+          {
+            step: "02",
+            title: "VIP-перелет, виза и отель 5*",
+            duration: "Дни 2–4 · Консьерж",
+            summary:
+              "Наш тревел-отдел бронирует билеты, оформляет медицинскую визу и размещает вас в партнерском отеле 5*.",
+            deliverables: [
+              "Приоритетное оформление медицинской визы",
+              "Индивидуальный трансфер аэропорт — клиника",
+              "Личный русскоязычный координатор 24/7",
+            ],
+            previewStat: "Под ключ",
+            previewSub: "Вся логистика на нас",
+          },
+          {
+            step: "03",
+            title: "Лечение мирового уровня",
+            duration: "Прибытие · Процедура",
+            summary:
+              "Никаких очередей. В клинике вас встречает личный медицинский переводчик и куратор.",
+            deliverables: [
+              "Госпитализация без ожидания в очередях",
+              "Ежедневные отчеты врача для близких",
+              "Международная медицинская страховка",
+            ],
+            previewStat: "99.4%",
+            previewSub: "Показатель клинического успеха",
+          },
+          {
+            step: "04",
+            title: "Реабилитация и 12 месяцев заботы",
+            duration: "После операции · Дома",
+            summary:
+              "Комфортное восстановление перед вылетом и дистанционное наблюдение лечащего врача в течение года.",
+            deliverables: [
+              "Медицинский допуск к перелету (Fit-to-Fly)",
+              "Переведенный эпикриз и план приема лекарств",
+              "Плановые видеоконсультации в течение 12 мес.",
+            ],
+            previewStat: "12 Месяцев",
+            previewSub: "Послеоперационное сопровождение",
+          },
+        ],
+      },
+      clinic: {
+        badge: "Система роста для клиник и госпиталей",
+        steps: [
+          {
+            step: "01",
+            title: "Клинический аудит и позиционирование",
+            duration: "Этап 1 · Недели 1–2",
+            summary:
+              "Анализируем профили клиники, оптимизируем международные протоколы и формируем востребованные пакеты услуг.",
+            deliverables: [
+              "Аудит готовности по 50 критериям",
+              "Дорожная карта аккредитации JCI и ISO",
+              "Формирование высокомаржинальных пакетов",
+            ],
+            previewStat: "Топ 4%",
+            previewSub: "Уровень клиник-партнеров",
+          },
+          {
+            step: "02",
+            title: "Запуск мультиязычного маркетинга",
+            duration: "Этап 2 · Недели 3–4",
+            summary:
+              "Запускаем целевые рекламные кампании в 13+ странах при поддержке нашего контакт-центра на 12 языках.",
+            deliverables: [
+              "Локализованные воронки на 12 языках",
+              "Первичный медицинский триаж обращений",
+              "CRM и аналитика окупаемости (ROI) в реальном времени",
+            ],
+            previewStat: "3.8× ROI",
+            previewSub: "Окупаемость медмаркетинга",
+          },
+          {
+            step: "03",
+            title: "Поставка сертифицированного оборудования",
+            duration: "Этап 3 · Постоянно",
+            summary:
+              "Модернизируйте хирургическую и диагностическую базу напрямую от мировых OEM-производителей с таможенным оформлением.",
+            deliverables: [
+              "Прямые цены OEM на МРТ, КТ и робототехнику",
+              "Холодовая цепь и таможенная очистка",
+              "Инженерный монтаж и официальная гарантия",
+            ],
+            previewStat: "-28% Расходов",
+            previewSub: "На закупку медоборудования",
+          },
+          {
+            step: "04",
+            title: "Стабильный поток иностранных пациентов",
+            duration: "Этап 4 · Масштабирование",
+            summary:
+              "Принимайте подготовленных иностранных пациентов каждую неделю, пока ArkMED берет на себя логистику и сопровождение.",
+            deliverables: [
+              "Полная организация перелета и проживания пациентов",
+              "Международный биллинг и безопасные расчеты",
+              "Ежеквартальные стратегические сессии роста",
+            ],
+            previewStat: "+34% в год",
+            previewSub: "Средний рост выручки клиники",
+          },
+        ],
+      },
+    },
+    calculator: {
+      eyebrow: "Интерактивный калькулятор",
+      title: "Медицина мирового уровня.",
+      titleHighlight: "В разы выгоднее.",
+      subtitle:
+        "Сравните среднюю стоимость лечения в частных клиниках вашего региона с пакетами «все включено» в JCI-госпиталях ArkMED.",
+      step1: "1. Выберите ваш регион для сравнения",
+      step2: "2. Выберите медицинскую процедуру",
+      vipTitle: "Включить отель 5*, VIP-трансфер и переводчика",
+      vipSubSuffix: "Полный консьерж-пакет от аэропорта до клиники",
+      breakdownBadge: "Расчет ориентировочной экономии",
+      savePrefix: "Экономия",
+      estimatedSavings: "ваша выгода",
+      forLabel: "Процедура:",
+      comparedTo: "по сравнению с частными клиниками в регионе",
+      typicalCostPrefix: "Средняя цена (",
+      typicalCostSuffix: ")",
+      arkPackageLabel: "Аккредитованный пакет ArkMED",
+      jciTag: "Госпиталь с аккредитацией JCI",
+      procOnlyTag: "Только процедура",
+      followUpTag: "12 мес. наблюдения врача",
+      disclaimer: "*Точная смета фиксируется после бесплатной консультации хирурга.",
+      cta: "Зафиксировать расчет",
+      regions: [
+        { id: "us", label: "США", flag: "🇺🇸", symbol: "$", mult: 1.0, rate: 1.0 },
+        { id: "uk", label: "Великобритания", flag: "🇬🇧", symbol: "£", mult: 0.78, rate: 0.79 },
+        { id: "eu", label: "Европа (ЕС)", flag: "🇪🇺", symbol: "€", mult: 0.82, rate: 0.92 },
+        { id: "ae", label: "ОАЭ / СНГ", flag: "🇦🇪", symbol: "$", mult: 0.88, rate: 1.0 },
+      ],
+      procedures: [
+        {
+          id: "dental",
+          name: "Полная реставрация зубов",
+          sub: "20 циркониевых коронок / виниров + импланты",
+          stay: "5 ночей · Стамбул или Анталья",
+          warranty: "Пожизненная гарантия на импланты",
+        },
+        {
+          id: "hair",
+          name: "Пересадка волос Sapphire FUE / DHI",
+          sub: "Максимум графтов + PRP + набор ухода",
+          stay: "3 ночи · VIP-клиника в Стамбуле",
+          warranty: "Сертификат гарантии приживаемости",
+        },
+        {
+          id: "ortho",
+          name: "Эндопротезирование колена / бедра",
+          sub: "Роботизированная операция + реабилитация",
+          stay: "7 ночей · Палата люкс в JCI-госпитале",
+          warranty: "Протезы с сертификацией FDA/CE",
+        },
+        {
+          id: "cardiac",
+          name: "Кардиохирургия (АКШ / клапаны)",
+          sub: "Малоинвазивная операция + ОРИТ + телеметрия",
+          stay: "10 ночей · Аккредитованный кардиоцентр",
+          warranty: "Команда ведущих кардиохирургов",
+        },
+        {
+          id: "ivf",
+          name: "ЭКО и лечение бесплодия",
+          sub: "Полный цикл + ICSI + эмбриология",
+          stay: "14 ночей · Бутик-отель для восстановления",
+          warranty: "Эмбриологическая лаборатория высокого класса",
+        },
+        {
+          id: "eye",
+          name: "Лазерная коррекция Femto-LASIK",
+          sub: "Оба глаза · Бесфлаповая коррекция зрения",
+          stay: "2 ночи · Быстрое восстановление",
+          warranty: "Протокол идеального зрения 20/20",
+        },
+      ],
+    },
+    valueProp: [
+      {
+        eyebrow: "Почему Ark Med",
+        title: "Надежные международные связи",
+        body: "Мы выстраиваем долгосрочные партнерства с аккредитованными госпиталями и ведущими врачами мира, чтобы каждый пациент получал помощь с полной уверенностью.",
+        bullets: [
+          "Только аккредитованные JCI/ISO госпитали",
+          "Прозрачные фиксированные цены до вылета",
+          "Личный русскоязычный координатор 24/7",
+        ],
+        cta: "Посмотреть нашу сеть",
+        stat: { value: "98%", label: "Довольных пациентов" },
+      },
+      {
+        eyebrow: "Наш вклад",
+        title: "Устойчивое развитие медицины",
+        body: "Наш подход укрепляет локальные медицинские центры и расширяет доступ к передовым технологиям, создавая долгосрочную ценность для клиник и пациентов.",
+        bullets: [
+          "Развитие клинической инфраструктуры",
+          "Этичные партнерства по мировым стандартам",
+          "Долгосрочные программы роста клиник",
+        ],
+        cta: "Узнать, как мы работаем",
+        stat: { value: "225+", label: "Клиник-партнеров" },
+      },
+    ],
+    network: {
+      eyebrow: "Глобальный охват",
+      title: "По-настоящему мировая",
+      titleHighlight: "медицинская сеть.",
+      subtitle:
+        "Объединяем госпитали, клиники и пациентов на разных континентах единым стандартом качества.",
+      stats: [
+        { value: "13", label: "Стран" },
+        { value: "225+", label: "Клиник-партнеров" },
+        { value: "40k", label: "Пациентов" },
+      ],
+      hubBadge: "Хаб",
+      partnerClinicsLabel: "Клиник-партнеров",
+      tapPrompt: "Нажмите на точку или страну, чтобы узнать детали.",
+      trustedBy: "Нам доверяют ведущие медицинские партнеры",
+    },
+    faq: {
+      eyebrow: "Быстрый триаж и FAQ",
+      title: "Каждый ответ —",
+      titleHighlight: "предельно прозрачно.",
+      categories: [
+        "Все",
+        "Виза и перелет",
+        "Цены и безопасность",
+        "Для клиник",
+        "Медснабжение",
+      ],
+      triageTitle: "Онлайн-триаж консьержа",
+      triageSub: "12 языков · Среднее время ответа ~3 мин",
+      liveBadge: "Онлайн",
+      tapPrompt: "Выберите быстрый вопрос",
+      inputPlaceholder: "Спросите о лечении, перелете или партнерстве...",
+      customReplyText:
+        "Координатор зафиксировал ваш вопрос. Нажмите «Связаться с координатором» ниже, чтобы получить персональный расчет и план лечения в течение 15 минут.",
+      needReview: "Нужен индивидуальный разбор?",
+      connectCta: "Связаться с координатором",
+      quickPrompts: [
+        {
+          q: "Как быстро я получу расчет стоимости?",
+          a: "В течение 24–48 часов! Отправьте медицинские выписки или снимки, и вы получите 3 детальных плана лечения от JCI-госпиталей и бесплатный видеозвонок с хирургом.",
+        },
+        {
+          q: "Можно ли прилететь с сопровождающим?",
+          a: "Конечно! Все наши пакеты проживания в отелях 5* и индивидуальные VIP-трансферы рассчитаны на пациента и одного сопровождающего без доплат за консьерж-сервис.",
+        },
+        {
+          q: "Как клинике стать вашим партнером?",
+          a: "Клиника проходит наш аудит по 50 пунктам. После одобрения мы запускаем маркетинг в 13+ странах и направляем предварительно подготовленных пациентов вашей команде.",
+        },
+        {
+          q: "Поставляете ли вы медоборудование за рубеж?",
+          a: "Да — мы закупаем сертифицированное CE/FDA оборудование напрямую у производителей и доставляем «до двери» госпиталя с таможенной очисткой и гарантией.",
+        },
+      ],
+      items: [
+        {
+          q: "Как ArkMED проверяет и отбирает больницы-партнеры?",
+          a: "Только 4% клиник проходят наш клинический аудит из 50 пунктов. Каждый партнерский госпиталь имеет аккредитацию JCI или ISO, сертифицированных хирургов и подтвержденную статистику успешных операций.",
+          cat: "Цены и безопасность",
+        },
+        {
+          q: "Включены ли перелет, отель 5* и медицинская виза?",
+          a: "Да. Наша консьерж-служба оформляет приоритетную медицинскую визу, организует индивидуальный трансфер аэропорт–клиника, проживание в отеле 5* и переводчика 24/7 на 12+ языках.",
+          cat: "Виза и перелет",
+        },
+        {
+          q: "Почему цены на 50–70% ниже без потери качества?",
+          a: "Благодаря более низким операционным расходам и нашим прямым корпоративным контрактам с ведущими госпиталями Турции, Европы и Азии вы получаете те же FDA/CE-импланты и технологии по институциональным тарифам.",
+          cat: "Цены и безопасность",
+        },
+        {
+          q: "Что происходит после моего возвращения домой?",
+          a: "Наблюдение продолжается 12 месяцев после выписки. Вы получаете переведенный эпикриз, допуск к перелету, плановые видеоконсультации с оперировавшим хирургом и связь с вашим лечащим врачом дома.",
+          cat: "Виза и перелет",
+        },
+        {
+          q: "Как нашей клинике или госпиталю присоединиться к сети ArkMED?",
+          a: "Мы сотрудничаем с аккредитованными клиниками, желающими увеличить поток иностранных пациентов или обновить оборудование. После 2-недельного аудита мы запускаем мультиязычный маркетинг и берем на себя всю логистику пациентов.",
+          cat: "Для клиник",
+        },
+        {
+          q: "Могут ли больницы заказывать медоборудование через ArkMED?",
+          a: "Да. Подразделение медицинского снабжения поставляет системы МРТ/КТ, хирургических роботов, мониторы ОРИТ и расходные материалы напрямую от мировых OEM-производителей под ключ.",
+          cat: "Медснабжение",
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "Начните сейчас",
+      title: "Готовы вывести ваш",
+      titleHighlight: "медицинский маршрут на новый уровень?",
+      subtitle:
+        "Обсудим, как Ark Med поможет вам получить лучшее лечение, привлечь пациентов или оснастить клинику.",
+      placeholder: "you@clinic.com",
+      button: "Записаться на консультацию",
+      sent: "Мы скоро свяжемся с вами!",
+      note: "Без спама. Ответ в течение 24 часов.",
+    },
+    footer: {
+      tagline:
+        "Стираем границы, чтобы медицина мирового уровня была доступна каждому.",
+      location: "Стамбул, Турция",
+      cols: [
+        {
+          title: "Услуги",
+          links: ["Медтуризм", "Консалтинг", "Маркетинг", "Медснабжение"],
+        },
+        { title: "Компания", links: ["О нас", "Сеть", "Карьера", "Контакты"] },
+        { title: "Ресурсы", links: ["Блог", "Кейсы", "FAQ", "Поддержка"] },
+      ],
+      rights: "© 2026 Ark Med Global Health and Travel. Все права защищены.",
+      privacy: "Конфиденциальность",
+      terms: "Условия",
+    },
+  },
+};

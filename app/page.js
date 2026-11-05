@@ -4,7 +4,8 @@ import Image from "next/image";
 import logoMark from "../public/logo-mark.png";
 import logoMarkLight from "../public/logo-mark-light.png";
 import logoFullLight from "../public/logo-full-light.png";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { LANGUAGES, TRANSLATIONS } from "./translations";
 import {
   motion,
   animate,
@@ -50,50 +51,22 @@ import {
 } from "lucide-react";
 
 /* -------------------------------------------------------------------------- */
-/*  Shared config & animation helpers                                          */
+/*  Language Context & Shared Config                                           */
 /* -------------------------------------------------------------------------- */
+
+const LangContext = createContext({
+  lang: "en",
+  setLang: () => {},
+  t: TRANSLATIONS.en,
+});
+
+function useLang() {
+  return useContext(LangContext);
+}
 
 const EASE = [0.22, 1, 0.36, 1];
 
-const NAV_LINKS = [
-  { label: "Services", href: "#services", hasMenu: true },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Calculator", href: "#calculator", badge: "Save 70%" },
-  { label: "Why Us", href: "#why-us" },
-  { label: "Network", href: "#network", badge: "13+" },
-  { label: "FAQ", href: "#faq" },
-];
-
-const NAV_SERVICES = [
-  {
-    title: "Medical Tourism",
-    desc: "End-to-end patient travel, clinic matching & 24/7 concierge.",
-    icon: Plane,
-    tag: "Popular",
-    href: "#services",
-  },
-  {
-    title: "Medical Consulting",
-    desc: "Global growth strategy & accreditation for clinics.",
-    icon: BarChart3,
-    tag: "+34% Growth",
-    href: "#services",
-  },
-  {
-    title: "Healthcare Marketing",
-    desc: "Compliant international patient acquisition campaigns.",
-    icon: Megaphone,
-    tag: "+248% ROI",
-    href: "#services",
-  },
-  {
-    title: "Medical Procurement",
-    desc: "Certified equipment & supplies sourced worldwide.",
-    icon: Package,
-    tag: "Direct",
-    href: "#services",
-  },
-];
+const SERVICE_ICONS = [Plane, BarChart3, Megaphone, Package];
 
 const stagger = {
   hidden: {},
@@ -168,10 +141,104 @@ function Button({ children, href = "#", variant = "primary", icon = true }) {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Language Switcher Dropdown                                                 */
+/* -------------------------------------------------------------------------- */
+
+function LanguageDropdown() {
+  const { lang, setLang } = useLang();
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+
+  const current = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
+
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  return (
+    <div
+      ref={wrapRef}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      className="relative shrink-0"
+    >
+      <button
+        type="button"
+        aria-label="Select language"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 text-xs font-bold text-ark-900 shadow-xs transition-all hover:border-sea-300 hover:bg-sea-50/80"
+      >
+        <Globe2 className="h-3.5 w-3.5 text-sea-600" />
+        <span>{current.flag}</span>
+        <span>{current.label}</span>
+        <ChevronDown
+          className={`h-3 w-3 text-slate-400 transition-transform duration-200 ${
+            open ? "rotate-180 text-sea-600" : ""
+          }`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: EASE }}
+            className="absolute right-0 top-full z-50 w-44 pt-2"
+          >
+            <div className="overflow-hidden rounded-2xl border border-sea-200/80 bg-white/95 p-1.5 shadow-xl shadow-ark-950/15 backdrop-blur-2xl">
+              {LANGUAGES.map((item) => {
+                const active = item.code === lang;
+                return (
+                  <button
+                    key={item.code}
+                    type="button"
+                    onClick={() => {
+                      setLang(item.code);
+                      setOpen(false);
+                    }}
+                    className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-semibold transition-colors ${
+                      active
+                        ? "bg-ark-950 text-white"
+                        : "text-slate-700 hover:bg-sea-50 hover:text-ark-950"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-sm leading-none">{item.flag}</span>
+                      <span>{item.name}</span>
+                    </span>
+                    <span
+                      className={`text-[10px] font-extrabold uppercase ${
+                        active ? "text-sea-300" : "text-slate-400"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Navbar (floating morphing glass island + mega-menu + scroll progress)      */
 /* -------------------------------------------------------------------------- */
 
 function Navbar() {
+  const { t, lang, setLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(null);
@@ -219,6 +286,9 @@ function Navbar() {
     e.currentTarget.style.setProperty("--ny", `${e.clientY - r.top}px`);
   };
 
+  const navLinks = t.nav.links;
+  const navServices = t.nav.services;
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
@@ -229,7 +299,7 @@ function Navbar() {
       <motion.div
         onMouseMove={onNavMove}
         animate={{
-          maxWidth: scrolled ? 1160 : 1280,
+          maxWidth: scrolled ? 1200 : 1320,
         }}
         transition={{ duration: 0.55, ease: EASE }}
         className={`pointer-events-auto relative mx-auto rounded-3xl transition-all duration-500 [--nx:50%] [--ny:50%] ${
@@ -264,7 +334,7 @@ function Navbar() {
             className="relative hidden shrink-0 items-center rounded-full border border-slate-200/70 bg-slate-100/70 p-1 shadow-inner shadow-slate-900/5 backdrop-blur-md lg:flex"
           >
             <ul className="flex items-center gap-0.5">
-              {NAV_LINKS.map((l) => {
+              {navLinks.map((l) => {
                 const isCurrent = activeSection === l.href;
                 const isHighlighted =
                   hovered === l.href || (hovered === null && isCurrent);
@@ -279,7 +349,7 @@ function Navbar() {
                   >
                     <a
                       href={l.href}
-                      className={`relative z-10 flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wide transition-colors duration-300 xl:px-4 xl:text-[13px] ${
+                      className={`relative z-10 flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide transition-colors duration-300 xl:px-3.5 xl:text-[13px] ${
                         isHighlighted
                           ? "text-ark-950"
                           : "text-slate-600 hover:text-ark-900"
@@ -304,7 +374,7 @@ function Navbar() {
                       <span className="whitespace-nowrap">{l.label}</span>
 
                       {l.badge && (
-                        <span className=" shrink-0 whitespace-nowrap rounded-full bg-sea-500/15 px-2 py-0.5 text-[10px] font-bold leading-none text-sea-700">
+                        <span className="shrink-0 whitespace-nowrap rounded-full bg-sea-500/15 px-2 py-0.5 text-[10px] font-bold leading-none text-sea-700">
                           {l.badge}
                         </span>
                       )}
@@ -334,8 +404,8 @@ function Navbar() {
                 >
                   <div className="overflow-hidden rounded-3xl border border-sea-200/80 bg-white/95 p-3 shadow-[0_24px_60px_-15px_rgba(12,38,65,0.22)] backdrop-blur-2xl">
                     <div className="grid grid-cols-2 gap-2">
-                      {NAV_SERVICES.map((s) => {
-                        const Icon = s.icon;
+                      {navServices.map((s, idx) => {
+                        const Icon = SERVICE_ICONS[idx] || Plane;
                         return (
                           <a
                             key={s.title}
@@ -351,7 +421,7 @@ function Navbar() {
                                 <p className="text-xs font-bold text-ark-900 group-hover:text-sea-800">
                                   {s.title}
                                 </p>
-                                <span className="rounded-full bg-sea-100/80 px-2 py-0.5 text-[10px] font-semibold text-sea-700">
+                                <span className="shrink-0 whitespace-nowrap rounded-full bg-sea-100/80 px-2 py-0.5 text-[10px] font-semibold text-sea-700">
                                   {s.tag}
                                 </span>
                               </div>
@@ -371,7 +441,7 @@ function Navbar() {
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-sea-400" />
                         </span>
                         <span className="font-medium text-sea-100">
-                          24/7 Patient & Clinic Concierge
+                          {t.nav.conciergeBanner}
                         </span>
                       </div>
                       <a
@@ -379,7 +449,7 @@ function Navbar() {
                         onClick={() => setServicesOpen(false)}
                         className="inline-flex items-center gap-1 font-semibold text-sea-300 transition-colors hover:text-white"
                       >
-                        Book free call
+                        {t.nav.bookCall}
                         <ArrowUpRight className="h-3.5 w-3.5" />
                       </a>
                     </div>
@@ -389,8 +459,10 @@ function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* Right actions: Live concierge badge + glowing CTA + mobile toggle */}
-          <div className="flex shrink-0 items-center gap-2.5">
+          {/* Right actions: Language switcher + Live concierge badge + glowing CTA + mobile toggle */}
+          <div className="flex shrink-0 items-center gap-2">
+            <LanguageDropdown />
+
             <a
               href="#contact"
               className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-sea-200/80 bg-sea-50/70 px-3 py-1.5 text-[11px] font-semibold text-sea-800 transition-all hover:border-sea-300 hover:bg-sea-100/80 xl:inline-flex"
@@ -399,7 +471,7 @@ function Navbar() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sea-500 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-sea-600" />
               </span>
-              <span className="whitespace-nowrap">24/7 Live</span>
+              <span className="whitespace-nowrap">{t.nav.live}</span>
             </a>
 
             <div className="hidden shrink-0 sm:block">
@@ -407,14 +479,16 @@ function Navbar() {
                 href="#contact"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="group relative inline-flex shrink-0 items-center gap-2 whitespace-nowrap overflow-hidden rounded-full bg-ark-950 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-ark-950/20 transition-all hover:bg-ark-900 hover:shadow-sea-500/30 sm:px-5 sm:py-2.5"
+                className="group relative inline-flex shrink-0 items-center gap-2 whitespace-nowrap overflow-hidden rounded-full bg-ark-950 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-ark-950/20 transition-all hover:bg-ark-900 hover:shadow-sea-500/30 sm:px-4 sm:py-2"
               >
                 <span
                   aria-hidden
                   className="absolute inset-y-0 left-0 w-1/3 -translate-x-full -skew-x-12 bg-gradient-to-r from-transparent via-sea-300/40 to-transparent transition-transform duration-700 group-hover:translate-x-[340%]"
                 />
                 <Sparkles className="relative h-3.5 w-3.5 shrink-0 text-sea-300 transition-transform duration-300 group-hover:rotate-12" />
-                <span className="relative whitespace-nowrap">Get Started</span>
+                <span className="relative whitespace-nowrap">
+                  {t.nav.getStarted}
+                </span>
                 <ArrowRight className="relative h-3.5 w-3.5 shrink-0 text-sea-300 transition-transform duration-300 group-hover:translate-x-0.5" />
               </motion.a>
             </div>
@@ -473,9 +547,31 @@ function Navbar() {
               className="overflow-hidden border-t border-slate-200/60 lg:hidden"
             >
               <div className="space-y-4 px-4 pb-5 pt-4">
+                {/* Mobile language pills */}
+                <div className="flex items-center justify-between rounded-2xl bg-slate-100/80 p-1.5">
+                  {LANGUAGES.map((item) => {
+                    const active = item.code === lang;
+                    return (
+                      <button
+                        key={item.code}
+                        type="button"
+                        onClick={() => setLang(item.code)}
+                        className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl py-1.5 text-xs font-bold transition-all ${
+                          active
+                            ? "bg-ark-950 text-white shadow-xs"
+                            : "text-slate-600 hover:text-ark-900"
+                        }`}
+                      >
+                        <span>{item.flag}</span>
+                        <span>{item.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
                 <div className="grid grid-cols-2 gap-2">
-                  {NAV_SERVICES.map((s) => {
-                    const Icon = s.icon;
+                  {navServices.map((s, idx) => {
+                    const Icon = SERVICE_ICONS[idx] || Plane;
                     return (
                       <a
                         key={s.title}
@@ -500,7 +596,7 @@ function Navbar() {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  {NAV_LINKS.map((l) => (
+                  {navLinks.map((l) => (
                     <a
                       key={l.href}
                       href={l.href}
@@ -517,7 +613,7 @@ function Navbar() {
                   <div className="flex items-center gap-2 text-xs">
                     <span className="h-2 w-2 rounded-full bg-sea-400 shadow-[0_0_8px_#72a6a8]" />
                     <span className="font-medium text-sea-100">
-                      24/7 Global Concierge
+                      {t.nav.mobileConcierge}
                     </span>
                   </div>
                   <a
@@ -525,7 +621,7 @@ function Navbar() {
                     onClick={() => setOpen(false)}
                     className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-sea-500 px-3.5 py-1.5 text-xs font-bold text-ark-950"
                   >
-                    Get Started
+                    {t.nav.getStarted}
                     <ArrowRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
@@ -539,6 +635,7 @@ function Navbar() {
 }
 
 function Logo({ light = false, compact = false }) {
+  const { t } = useLang();
   return (
     <a
       href="#"
@@ -574,7 +671,7 @@ function Logo({ light = false, compact = false }) {
             light ? "text-sea-200/70" : "text-slate-400"
           } ${compact ? "hidden sm:block" : "block"}`}
         >
-          Global Health
+          {t.nav.brandSub}
         </span>
       </div>
     </a>
@@ -585,19 +682,7 @@ function Logo({ light = false, compact = false }) {
 /*  Hero                                                                       */
 /* -------------------------------------------------------------------------- */
 
-const ROTATING_WORDS = ["Healthcare", "Medicine", "Wellness", "Care"];
-
-const JOURNEY = [
-  { n: "01", label: "Consultation", icon: CalendarCheck },
-  { n: "02", label: "Travel & Stay", icon: Plane },
-  { n: "03", label: "Treatment", icon: HeartPulse },
-];
-
-const HERO_STATS = [
-  { to: 40, suffix: "+", label: "Countries" },
-  { to: 225, suffix: "+", label: "Partner clinics" },
-  { to: 40, suffix: "k", label: "Patients guided" },
-];
+const JOURNEY_ICONS = [CalendarCheck, Plane, HeartPulse];
 
 /** Animated number that counts up when scrolled into view */
 function CountUp({ to, suffix = "" }) {
@@ -634,23 +719,26 @@ const wordIn = {
 };
 
 function RotatingWord() {
+  const { t } = useLang();
+  const words = t.hero.rotatingWords;
   const [i, setI] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setI((p) => (p + 1) % ROTATING_WORDS.length), 2600);
-    return () => clearInterval(t);
-  }, []);
+    const timer = setInterval(() => setI((p) => (p + 1) % words.length), 2600);
+    return () => clearInterval(timer);
+  }, [words.length]);
+  const word = words[i % words.length];
   return (
     <span className="relative inline-flex overflow-hidden pb-2 align-bottom">
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
-          key={ROTATING_WORDS[i]}
+          key={word}
           initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
           animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
           exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
           transition={{ duration: 0.55, ease: EASE }}
           className="bg-gradient-to-r from-ark-800 via-sea-600 to-sea-400 bg-clip-text text-transparent"
         >
-          {ROTATING_WORDS[i]}
+          {word}
         </motion.span>
       </AnimatePresence>
       <span className="bg-gradient-to-r from-sea-400 to-sea-300 bg-clip-text text-transparent">.</span>
@@ -685,10 +773,14 @@ function FloatingChip({ icon: Icon, title, sub, className, delay = 0 }) {
 
 /** Dashboard mockup with mouse-driven 3D tilt and a live journey tracker */
 function HeroDashboard() {
+  const { t } = useLang();
+  const d = t.hero.dashboard;
+  const chips = t.hero.chips;
+
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setStep((s) => (s + 1) % 4), 2400);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setStep((s) => (s + 1) % 4), 2400);
+    return () => clearInterval(timer);
   }, []);
 
   const mx = useMotionValue(0);
@@ -714,9 +806,9 @@ function HeroDashboard() {
       onMouseLeave={onLeave}
       className="relative mx-auto mt-16 max-w-5xl px-6 [perspective:1400px]"
     >
-      <FloatingChip icon={BadgeCheck} title="Visa approved" sub="Within 48 hours" className="-left-2 top-16 xl:-left-10" />
-      <FloatingChip icon={Star} title="4.9 / 5 rating" sub="From 12k+ patients" className="-right-2 top-40 xl:-right-10" delay={0.4} />
-      <FloatingChip icon={Plane} title="Flight booked" sub="Istanbul → Dubai" className="bottom-24 left-4 xl:-left-4" delay={0.8} />
+      <FloatingChip icon={BadgeCheck} title={chips[0].title} sub={chips[0].sub} className="-left-2 top-16 xl:-left-10" />
+      <FloatingChip icon={Star} title={chips[1].title} sub={chips[1].sub} className="-right-2 top-40 xl:-right-10" delay={0.4} />
+      <FloatingChip icon={Plane} title={chips[2].title} sub={chips[2].sub} className="bottom-24 left-4 xl:-left-4" delay={0.8} />
 
       <motion.div
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
@@ -736,30 +828,31 @@ function HeroDashboard() {
             <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
             <span className="h-2.5 w-2.5 rounded-full bg-sea-400" />
-            <span className="ml-3 text-[11px] text-slate-400">Ark Med · Patient Connect</span>
+            <span className="ml-3 text-[11px] text-slate-400">{d.windowTitle}</span>
             <span className="ml-auto flex items-center gap-1.5 text-[11px] text-sea-400">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sea-400/70" />
                 <span className="relative h-2 w-2 rounded-full bg-sea-400" />
               </span>
-              Live
+              {d.live}
             </span>
           </div>
 
           <div className="grid gap-4 rounded-2xl bg-slate-50 p-4 sm:p-6 md:grid-cols-[1.6fr_1fr]">
             <div>
-              <h3 className="text-lg font-bold text-ark-900">Your journey. All connected.</h3>
+              <h3 className="text-lg font-bold text-ark-900">{d.heading}</h3>
               <p className="mt-1 text-sm text-slate-500">
-                From first consultation to recovery, every step in one place.
+                {d.sub}
               </p>
               <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                {JOURNEY.map((s, i) => {
+                {d.steps.map((label, i) => {
+                  const n = `0${i + 1}`;
                   const done = step > i;
                   const active = step === i;
-                  const Icon = s.icon;
+                  const Icon = JOURNEY_ICONS[i] || CalendarCheck;
                   return (
                     <motion.div
-                      key={s.n}
+                      key={n}
                       animate={{ y: active ? -6 : 0, scale: active ? 1.03 : 1 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className={`relative overflow-hidden rounded-xl border p-4 transition-colors duration-500 ${
@@ -771,7 +864,7 @@ function HeroDashboard() {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-sea-700">{s.n}</span>
+                        <span className="text-xs font-bold text-sea-700">{n}</span>
                         <span
                           className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-500 ${
                             done ? "bg-sea-600 text-white" : active ? "bg-sea-100 text-sea-700" : "bg-slate-100 text-slate-400"
@@ -780,9 +873,9 @@ function HeroDashboard() {
                           {done ? <Check className="h-3.5 w-3.5" /> : <Icon className="h-3.5 w-3.5" />}
                         </span>
                       </div>
-                      <p className="mt-2 text-sm font-semibold text-ark-900">{s.label}</p>
+                      <p className="mt-2 text-sm font-semibold text-ark-900">{label}</p>
                       <p className={`text-xs ${active ? "font-medium text-sea-700" : "text-slate-500"}`}>
-                        {done ? "Completed" : active ? "In progress…" : "Upcoming"}
+                        {done ? d.statusDone : active ? d.statusActive : d.statusUpcoming}
                       </p>
                       {active && (
                         <motion.span
@@ -804,12 +897,12 @@ function HeroDashboard() {
                 className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-dashed border-white/25"
               />
               <Globe2 className="relative h-6 w-6 text-sea-100" />
-              <p className="relative mt-3 text-sm font-semibold">A world of care, closer to you.</p>
+              <p className="relative mt-3 text-sm font-semibold">{d.cardTitle}</p>
               <p className="relative mt-1 text-xs text-sea-50/80">
-                Vetted hospitals, transparent pricing, and 24/7 concierge support.
+                {d.cardSub}
               </p>
               <div className="relative mt-4 flex items-center justify-between text-[11px] text-sea-50">
-                <span>Journey progress</span>
+                <span>{d.progressLabel}</span>
                 <span className="font-bold tabular-nums">{progress}%</span>
               </div>
               <div className="relative mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/20">
@@ -828,6 +921,7 @@ function HeroDashboard() {
 }
 
 function Hero() {
+  const { t, lang } = useLang();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -878,6 +972,7 @@ function Hero() {
       />
 
       <motion.div
+        key={lang}
         style={{ y: textY }}
         variants={stagger}
         initial="hidden"
@@ -896,12 +991,12 @@ function Hero() {
             className="absolute inset-y-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-sea-300/50 to-transparent"
           />
           <Sparkles className="relative h-3.5 w-3.5" />
-          <span className="relative">Global Healthcare Opportunities</span>
+          <span className="relative">{t.hero.badge}</span>
         </motion.span>
 
         <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-ark-900 sm:text-6xl lg:text-7xl">
           <motion.span variants={stagger} className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4">
-            {["Bridging", "Borders", "in"].map((w) => (
+            {t.hero.titleTop.map((w) => (
               <motion.span key={w} variants={wordIn} className="inline-block">
                 {w}
               </motion.span>
@@ -911,14 +1006,13 @@ function Hero() {
             variants={wordIn}
             className="mt-1 flex flex-wrap justify-center gap-x-3 sm:gap-x-4"
           >
-            <span>Global</span>
+            <span>{t.hero.titlePrefix}</span>
             <RotatingWord />
           </motion.span>
         </h1>
 
         <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
-          Connecting patients, optimizing clinics, and streamlining medical
-          procurement worldwide, all through one trusted partner.
+          {t.hero.subtitle}
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -929,10 +1023,10 @@ function Hero() {
               transition={{ duration: 2.4, repeat: Infinity }}
               className="absolute inset-0 rounded-full bg-sea-500"
             />
-            <Button href="#services">Explore Services</Button>
+            <Button href="#services">{t.hero.ctaPrimary}</Button>
           </span>
           <Button href="#contact" variant="secondary" icon={false}>
-            Partner With Us
+            {t.hero.ctaSecondary}
           </Button>
         </motion.div>
 
@@ -941,7 +1035,7 @@ function Hero() {
           variants={fadeUp}
           className="mt-12 grid w-full max-w-lg grid-cols-3 divide-x divide-slate-200"
         >
-          {HERO_STATS.map((s) => (
+          {t.hero.stats.map((s) => (
             <div key={s.label} className="flex flex-col px-2">
               <dt className="order-2 text-[11px] text-slate-500 sm:text-xs">{s.label}</dt>
               <dd className="text-2xl font-extrabold tabular-nums text-ark-900 sm:text-3xl">
@@ -1019,13 +1113,14 @@ function CardHead({ index, icon: Icon, dark = false }) {
 }
 
 function LearnMore({ dark = false }) {
+  const { t } = useLang();
   return (
     <span
       className={`relative mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold ${
         dark ? "text-sea-300" : "text-sea-700"
       }`}
     >
-      Learn more
+      {t.services.learnMore}
       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
     </span>
   );
@@ -1033,6 +1128,8 @@ function LearnMore({ dark = false }) {
 
 /** Animated flight path with a moving plane */
 function RouteVisual() {
+  const { t } = useLang();
+  const [cityA, cityB] = t.services.routeCities;
   const d = "M30 105 Q 150 -15 270 85";
   const pin = { transformBox: "fill-box", transformOrigin: "center" };
   return (
@@ -1047,12 +1144,12 @@ function RouteVisual() {
         viewport={viewport}
         transition={{ duration: 2, ease: "easeInOut", delay: 0.4 }}
       />
-      {[[30, 105, "Your city"], [270, 85, "Top clinic"]].map(([x, y, t]) => (
-        <g key={t}>
+      {[[30, 105, cityA], [270, 85, cityB]].map(([x, y, label]) => (
+        <g key={label}>
           <circle cx={x} cy={y} r="6" fill="#72a6a8" className="animate-ping" style={pin} opacity="0.5" />
           <circle cx={x} cy={y} r="4.5" fill="#72a6a8" />
           <text x={x} y={y + 18} textAnchor="middle" fontSize="9" fill="#94a3b8">
-            {t}
+            {label}
           </text>
         </g>
       ))}
@@ -1097,11 +1194,13 @@ function Sparkline() {
 }
 
 function ShipmentTrack() {
+  const { t } = useLang();
+  const c4 = t.services.card4;
   return (
     <div className="relative mt-5">
       <div className="flex items-center justify-between text-[11px] font-medium text-slate-500">
-        <span>Warehouse</span>
-        <span>Hospital</span>
+        <span>{c4.from}</span>
+        <span>{c4.to}</span>
       </div>
       <div className="relative mt-2 h-1.5 rounded-full bg-slate-200">
         <motion.div
@@ -1122,39 +1221,28 @@ function ShipmentTrack() {
         </motion.span>
       </div>
       <p className="mt-3 text-[11px] text-slate-500">
-        Order #A-2041 · <span className="font-semibold text-sea-700">In transit</span>
+        {c4.order} <span className="font-semibold text-sea-700">{c4.status}</span>
       </p>
     </div>
   );
 }
 
-const CHAT = [
-  { from: "user", text: "I need a knee replacement. Where can I go?" },
-  { from: "bot", text: "Matched you with 3 top orthopedic hospitals. Est. savings: 58%." },
-  { from: "user", text: "Can you arrange my travel too?" },
-  { from: "bot", text: "Flights, visa & hotel are booked. See you Monday ✈️" },
-];
-
-const SAVINGS = [
-  { label: "Dental", pct: 65 },
-  { label: "Hair transplant", pct: 70 },
-  { label: "Cardiac care", pct: 55 },
-  { label: "Eye surgery", pct: 60 },
-];
-
 /** Looping fake concierge chat: messages arrive one by one with typing dots */
 function ConciergeChat() {
+  const { t } = useLang();
+  const chat = t.services.chat;
+  const messages = chat.messages;
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const t = setTimeout(
-      () => setStep((s) => (s > CHAT.length + 1 ? 0 : s + 1)),
-      step > CHAT.length ? 3200 : 1700
+    const timer = setTimeout(
+      () => setStep((s) => (s > messages.length + 1 ? 0 : s + 1)),
+      step > messages.length ? 3200 : 1700
     );
-    return () => clearTimeout(t);
-  }, [step]);
+    return () => clearTimeout(timer);
+  }, [step, messages.length]);
 
-  const shown = CHAT.slice(0, Math.min(step, CHAT.length));
-  const typing = step < CHAT.length && CHAT[step].from === "bot";
+  const shown = messages.slice(0, Math.min(step, messages.length));
+  const typing = step < messages.length && messages[step].from === "bot";
 
   return (
     <div className="flex min-h-[17rem] flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur">
@@ -1164,8 +1252,8 @@ function ConciergeChat() {
           <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-ark-900 bg-sea-400" />
         </span>
         <div className="text-left">
-          <p className="text-xs font-bold text-white">Ark Med Concierge</p>
-          <p className="text-[11px] text-sea-300">Online · replies in ~3 min</p>
+          <p className="text-xs font-bold text-white">{chat.title}</p>
+          <p className="text-[11px] text-sea-300">{chat.status}</p>
         </div>
       </div>
 
@@ -1215,17 +1303,19 @@ function ConciergeChat() {
 
 /** Savings comparison bars + service highlights */
 function SavingsPanel() {
+  const { t } = useLang();
+  const sav = t.services.savings;
   return (
     <div className="flex min-h-[17rem] flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold text-white">Typical savings abroad</p>
+        <p className="text-xs font-bold text-white">{sav.title}</p>
         <span className="rounded-full bg-sea-400/15 px-2 py-0.5 text-[10px] font-semibold text-sea-300">
-          vs. home country
+          {sav.badge}
         </span>
       </div>
 
       <ul className="mt-4 flex flex-1 flex-col justify-between gap-3">
-        {SAVINGS.map((s, i) => (
+        {sav.items.map((s, i) => (
           <li key={s.label}>
             <div className="mb-1.5 flex justify-between text-[11px]">
               <span className="text-slate-300">{s.label}</span>
@@ -1252,11 +1342,7 @@ function SavingsPanel() {
       </ul>
 
       <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/10 pt-3 text-center">
-        {[
-          ["24/7", "Support"],
-          ["12", "Languages"],
-          ["3 min", "Avg. reply"],
-        ].map(([v, l]) => (
+        {sav.stats.map(([v, l]) => (
           <div key={l}>
             <p className="text-sm font-extrabold text-white">{v}</p>
             <p className="text-[10px] text-slate-400">{l}</p>
@@ -1277,6 +1363,8 @@ function TourismExtras() {
 }
 
 function BentoServices() {
+  const { t } = useLang();
+  const s = t.services;
   return (
     <section id="services" className="relative overflow-hidden bg-slate-50 py-28">
       <div
@@ -1291,18 +1379,17 @@ function BentoServices() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <Eyebrow>Our Services</Eyebrow>
+            <Eyebrow>{s.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ark-900 sm:text-5xl">
-              One partner. A world of
+              {s.titleLine1}
               <br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-ark-800 to-sea-500 bg-clip-text text-transparent">
-                possibilities.
+                {s.titleHighlight}
               </span>
             </h2>
           </Reveal>
           <Reveal delay={0.15} className="max-w-sm text-slate-600">
-            Four pillars that cover every stage of international healthcare,
-            from patient to procurement.
+            {s.subtitle}
           </Reveal>
         </div>
 
@@ -1317,20 +1404,15 @@ function BentoServices() {
               className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-sea-500/20 blur-3xl"
             />
             <CardHead index="01" icon={Plane} dark />
-            <h3 className="relative text-2xl font-extrabold sm:text-4xl">Medical Tourism</h3>
+            <h3 className="relative text-2xl font-extrabold sm:text-4xl">{s.card1.title}</h3>
             <p className="relative mt-3 max-w-md text-slate-300">
-              Seamless global patient care and travel, from clinic matching to
-              visas, stays, and recovery.
+              {s.card1.desc}
             </p>
             <RouteVisual />
             <ul className="relative grid gap-3 sm:grid-cols-3">
-              {[
-                "Hospital & specialist matching",
-                "Travel, visa & stay concierge",
-                "Post-treatment follow-up",
-              ].map((t, i) => (
+              {s.card1.bullets.map((item, i) => (
                 <motion.li
-                  key={t}
+                  key={item}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewport}
@@ -1340,7 +1422,7 @@ function BentoServices() {
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sea-400/20 text-sea-300">
                     <Check className="h-3 w-3" />
                   </span>
-                  {t}
+                  {item}
                 </motion.li>
               ))}
             </ul>
@@ -1353,9 +1435,9 @@ function BentoServices() {
             <CardHead index="02" icon={BarChart3} />
             <div className="relative flex items-end justify-between gap-4">
               <div>
-                <h3 className="text-xl font-bold text-ark-900">Medical Consulting</h3>
+                <h3 className="text-xl font-bold text-ark-900">{s.card2.title}</h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Strategy that helps clinics grow and operate globally.
+                  {s.card2.desc}
                 </p>
               </div>
               <div className="flex h-24 shrink-0 items-end gap-1.5">
@@ -1372,7 +1454,7 @@ function BentoServices() {
               </div>
             </div>
             <span className="relative mt-4 inline-flex w-fit items-center gap-1 rounded-full bg-sea-50 px-2.5 py-1 text-xs font-bold text-sea-700">
-              <TrendingUp className="h-3.5 w-3.5" /> +34% avg. clinic growth
+              <TrendingUp className="h-3.5 w-3.5" /> {s.card2.badge}
             </span>
             <LearnMore />
           </SpotlightCard>
@@ -1382,13 +1464,13 @@ function BentoServices() {
             <SpotlightCard delay={0.2} innerClassName="bg-sea-50">
               <CardHead index="03" icon={Megaphone} />
               <div className="relative flex items-start justify-between">
-                <h3 className="text-lg font-bold text-ark-900">Healthcare Marketing</h3>
+                <h3 className="text-lg font-bold text-ark-900">{s.card3.title}</h3>
                 <span className="rounded-full bg-sea-600 px-2 py-0.5 text-[11px] font-bold text-white">
                   +248%
                 </span>
               </div>
               <p className="relative mt-2 text-sm text-slate-600">
-                Reach international patients with trusted, compliant campaigns.
+                {s.card3.desc}
               </p>
               <Sparkline />
               <LearnMore />
@@ -1396,9 +1478,9 @@ function BentoServices() {
 
             <SpotlightCard delay={0.3} innerClassName="bg-white">
               <CardHead index="04" icon={Package} />
-              <h3 className="relative text-lg font-bold text-ark-900">Medical Procurement</h3>
+              <h3 className="relative text-lg font-bold text-ark-900">{s.card4.title}</h3>
               <p className="relative mt-2 text-sm text-slate-600">
-                Certified equipment and supplies, sourced and delivered.
+                {s.card4.desc}
               </p>
               <ShipmentTrack />
               <LearnMore />
@@ -1414,16 +1496,9 @@ function BentoServices() {
 /*  Marquee divider                                                            */
 /* -------------------------------------------------------------------------- */
 
-const MARQUEE_ITEMS = [
-  "Medical Tourism",
-  "Medical Consulting",
-  "Healthcare Marketing",
-  "Medical Procurement",
-  "Global Network",
-  "24/7 Concierge",
-];
-
 function Marquee() {
+  const { t } = useLang();
+  const items = t.marquee;
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-ark-900 via-sea-800 to-sea-600 py-4 text-white">
       <motion.div
@@ -1431,12 +1506,12 @@ function Marquee() {
         transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
         className="flex w-max gap-10 whitespace-nowrap"
       >
-        {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((t, i) => (
+        {[...items, ...items].map((label, i) => (
           <span
             key={i}
             className="flex items-center gap-10 text-sm font-semibold uppercase tracking-[0.25em]"
           >
-            {t}
+            {label}
             <Sparkles className="h-4 w-4 text-sea-200" />
           </span>
         ))}
@@ -1449,27 +1524,15 @@ function Marquee() {
 /*  Value proposition (alternating Z-pattern)                                  */
 /* -------------------------------------------------------------------------- */
 
-const VALUE_ROWS = [
+const VALUE_MEDIA = [
   {
-    eyebrow: "Why Ark Med",
-    title: "Trusted International Connections",
-    body: "We build lasting relationships with accredited hospitals, specialists, and partners worldwide so every patient and provider is matched with confidence.",
-    bullets: ["Accredited hospitals only", "Transparent, upfront pricing", "One dedicated coordinator"],
-    cta: "Meet our network",
     icon: ShieldCheck,
-    stat: { value: "98%", label: "Patient satisfaction" },
     image:
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
     alt: "Glass globe on a modern clinic desk",
   },
   {
-    eyebrow: "Our Impact",
-    title: "Sustainable Healthcare Opportunities",
-    body: "Our approach strengthens local healthcare systems while expanding access, creating long-term value for clinics, communities, and patients alike.",
-    bullets: ["Capacity building for clinics", "Ethical, compliant partnerships", "Long-term growth programs"],
-    cta: "See how we work",
     icon: HeartPulse,
-    stat: { value: "225+", label: "Clinics empowered" },
     image:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
     alt: "Doctors reviewing a tablet together",
@@ -1504,8 +1567,8 @@ function ParallaxImage({ src, alt }) {
   );
 }
 
-function ValueRow({ row, reverse, index }) {
-  const Icon = row.icon;
+function ValueRow({ row, media, reverse, index }) {
+  const Icon = media.icon;
   return (
     <div className="grid items-center gap-14 md:grid-cols-2 md:gap-20">
       {/* Visual */}
@@ -1517,7 +1580,7 @@ function ValueRow({ row, reverse, index }) {
               reverse ? "-rotate-3" : "rotate-3"
             }`}
           />
-          <ParallaxImage src={row.image} alt={row.alt} />
+          <ParallaxImage src={media.image} alt={media.alt} />
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -1583,6 +1646,7 @@ function ValueRow({ row, reverse, index }) {
 }
 
 function ValueProp() {
+  const { t } = useLang();
   return (
     <section id="why-us" className="relative isolate overflow-hidden bg-white py-28">
       <div
@@ -1590,8 +1654,14 @@ function ValueProp() {
         className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-sea-100/70 blur-[110px]"
       />
       <div className="relative mx-auto flex max-w-6xl flex-col gap-32 px-6">
-        {VALUE_ROWS.map((row, i) => (
-          <ValueRow key={row.title} row={row} reverse={i % 2 === 1} index={i} />
+        {t.valueProp.map((row, i) => (
+          <ValueRow
+            key={i}
+            row={row}
+            media={VALUE_MEDIA[i]}
+            reverse={i % 2 === 1}
+            index={i}
+          />
         ))}
       </div>
     </section>
@@ -1689,13 +1759,10 @@ function arcPath(a, b) {
   return `M${a.x} ${a.y} Q${mx} ${my} ${b.x} ${b.y}`;
 }
 
-const REACH_STATS = [
-  { icon: Globe2, value: "13", label: "Countries" },
-  { icon: Building2, value: "225+", label: "Partner clinics" },
-  { icon: Users, value: "40k", label: "Patients guided" },
-];
+const REACH_ICONS = [Globe2, Building2, Users];
 
 function LocationCard({ loc, compact = false }) {
+  const { t } = useLang();
   return (
     <div
       className={`rounded-2xl border border-sea-400/30 bg-ark-950/80 p-4 text-left shadow-2xl shadow-sea-500/20 backdrop-blur-xl ${
@@ -1713,13 +1780,13 @@ function LocationCard({ loc, compact = false }) {
         </div>
         {loc.hub && (
           <span className="ml-auto rounded-full bg-sea-400/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sea-300">
-            Hub
+            {t.network.hubBadge}
           </span>
         )}
       </div>
       <p className="mt-3 text-xs text-slate-300">{loc.focus}</p>
       <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
-        <span className="text-slate-400">Partner clinics</span>
+        <span className="text-slate-400">{t.network.partnerClinicsLabel}</span>
         <span className="font-bold text-sea-300">{loc.partners}</span>
       </div>
       <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
@@ -1735,6 +1802,7 @@ function LocationCard({ loc, compact = false }) {
 }
 
 function WorldMap() {
+  const { t } = useLang();
   const [active, setActive] = useState(null);
   const landDots = useMemo(() => buildLandDots(), []);
   const activeLoc = LOCATIONS.find((l) => l.id === active);
@@ -1895,7 +1963,7 @@ function WorldMap() {
               <LocationCard loc={activeLoc} compact />
             </motion.div>
           ) : (
-            <p className="pt-8 text-sm text-slate-500">Tap a dot or country to explore.</p>
+            <p className="pt-8 text-sm text-slate-500">{t.network.tapPrompt}</p>
           )}
         </AnimatePresence>
       </div>
@@ -1926,6 +1994,7 @@ function WorldMap() {
 }
 
 function GlobalReach() {
+  const { t } = useLang();
   return (
     <section
       id="network"
@@ -1943,16 +2012,15 @@ function GlobalReach() {
 
       <div className="relative mx-auto max-w-6xl px-6 text-center">
         <Reveal>
-          <Eyebrow light>Global Reach</Eyebrow>
+          <Eyebrow light>{t.network.eyebrow}</Eyebrow>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-            A Truly Global{" "}
+            {t.network.title}{" "}
             <span className="bg-gradient-to-r from-sea-300 to-sea-200 bg-clip-text text-transparent">
-              Healthcare Network.
+              {t.network.titleHighlight}
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-slate-400">
-            Connecting hospitals, clinics, and patients across continents with
-            one unified standard of care.
+            {t.network.subtitle}
           </p>
         </Reveal>
 
@@ -1964,18 +2032,21 @@ function GlobalReach() {
           viewport={viewport}
           className="mx-auto mt-10 grid max-w-2xl grid-cols-3 gap-3"
         >
-          {REACH_STATS.map(({ icon: Icon, value, label }) => (
-            <motion.li
-              key={label}
-              variants={fadeUp}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl border border-white/10 bg-white/5 px-3 py-4 backdrop-blur transition-colors hover:border-sea-400/40"
-            >
-              <Icon className="mx-auto h-4 w-4 text-sea-400" />
-              <p className="mt-2 text-xl font-bold sm:text-2xl">{value}</p>
-              <p className="text-[11px] text-slate-400 sm:text-xs">{label}</p>
-            </motion.li>
-          ))}
+          {t.network.stats.map(({ value, label }, idx) => {
+            const Icon = REACH_ICONS[idx] || Globe2;
+            return (
+              <motion.li
+                key={label}
+                variants={fadeUp}
+                whileHover={{ y: -4 }}
+                className="rounded-2xl border border-white/10 bg-white/5 px-3 py-4 backdrop-blur transition-colors hover:border-sea-400/40"
+              >
+                <Icon className="mx-auto h-4 w-4 text-sea-400" />
+                <p className="mt-2 text-xl font-bold sm:text-2xl">{value}</p>
+                <p className="text-[11px] text-slate-400 sm:text-xs">{label}</p>
+              </motion.li>
+            );
+          })}
         </motion.ul>
 
         <WorldMap />
@@ -1983,7 +2054,7 @@ function GlobalReach() {
         {/* Partners */}
         <Reveal delay={0.1} className="mt-16">
           <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-            Trusted by leading healthcare partners
+            {t.network.trustedBy}
           </p>
           <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
             {PARTNERS.map((p) => (
@@ -2007,160 +2078,28 @@ function GlobalReach() {
 /*  How It Works (Dual-Mode Scrollytelling Timeline: Patient vs. Clinic)      */
 /* -------------------------------------------------------------------------- */
 
-const TIMELINE_DATA = {
-  patient: {
-    badge: "Patient Concierge Journey",
-    headline: "From first question to full recovery.",
-    sub: "Every medical, travel, and hospitality detail orchestrated by your personal care team.",
-    metric: { value: "48 hrs", label: "Average time to receive 3 hospital treatment plans" },
-    steps: [
-      {
-        step: "01",
-        title: "Free Medical Board Review",
-        duration: "Day 1 · Within 24h",
-        icon: Stethoscope,
-        summary:
-          "Upload your scans or medical history securely. Our specialist board matches you with the top 3 JCI-accredited hospitals.",
-        deliverables: [
-          "3 itemized hospital treatment quotes",
-          "Direct video call with lead surgeon",
-          "Transparent zero-hidden-fee guarantee",
-        ],
-        previewStat: "100% Free",
-        previewSub: "No commitment required",
-      },
-      {
-        step: "02",
-        title: "VIP Travel, Visa & 5-Star Stay",
-        duration: "Days 2–4 · Concierge",
-        icon: Plane,
-        summary:
-          "Our travel desk books your flights, fast-tracks medical visas, and reserves recovery-friendly 5-star partner hotels.",
-        deliverables: [
-          "Priority medical visa documentation",
-          "Private airport & clinic chauffeur",
-          "Dedicated 24/7 native-speaking host",
-        ],
-        previewStat: "Door-to-Door",
-        previewSub: "All logistics handled",
-      },
-      {
-        step: "03",
-        title: "World-Class Treatment",
-        duration: "Arrival · Procedure",
-        icon: HeartPulse,
-        summary:
-          "Skip every waiting list. Arrive at your hospital with your bedside interpreter and coordinator already waiting for you.",
-        deliverables: [
-          "Zero waiting-room delays",
-          "Daily family & doctor status briefings",
-          "International medical insurance cover",
-        ],
-        previewStat: "99.4%",
-        previewSub: "Clinical success benchmark",
-      },
-      {
-        step: "04",
-        title: "Recovery & 12-Month Aftercare",
-        duration: "Post-Op · Home",
-        icon: ShieldCheck,
-        summary:
-          "Recover comfortably before flying home, with continuous remote check-ins and local physician handoff.",
-        deliverables: [
-          "Fit-to-fly medical clearance",
-          "Translated medical records & prescriptions",
-          "12-month scheduled video follow-ups",
-        ],
-        previewStat: "12 Months",
-        previewSub: "Continuous follow-up care",
-      },
-    ],
-  },
-  clinic: {
-    badge: "Clinic & Hospital Growth Engine",
-    headline: "Scale your hospital across borders.",
-    sub: "Turnkey patient acquisition, international accreditation, and direct medical procurement.",
-    metric: { value: "+248%", label: "Average increase in qualified international patient volume" },
-    steps: [
-      {
-        step: "01",
-        title: "Clinical Audit & Global Positioning",
-        duration: "Phase 1 · Weeks 1–2",
-        icon: BadgeCheck,
-        summary:
-          "We benchmark your specialties, streamline international patient workflows, and align pricing for high-demand corridors.",
-        deliverables: [
-          "50-point international readiness audit",
-          "JCI & ISO compliance roadmap",
-          "High-margin procedure packaging",
-        ],
-        previewStat: "Top 4%",
-        previewSub: "Accredited partner tier",
-      },
-      {
-        step: "02",
-        title: "Multilingual Acquisition Launch",
-        duration: "Phase 2 · Weeks 3–4",
-        icon: Megaphone,
-        summary:
-          "Launch compliant, high-intent patient campaigns across 13+ countries backed by our 12-language triage center.",
-        deliverables: [
-          "Localized landing funnels in 12 languages",
-          "Pre-qualified patient lead triage",
-          "Real-time CRM & ROI attribution dashboard",
-        ],
-        previewStat: "3.8× ROI",
-        previewSub: "On international marketing",
-      },
-      {
-        step: "03",
-        title: "Certified Equipment Procurement",
-        duration: "Phase 3 · Ongoing",
-        icon: Package,
-        summary:
-          "Upgrade surgical and diagnostic capacity with direct-from-OEM medical equipment and customs-cleared logistics.",
-        deliverables: [
-          "Direct OEM pricing on imaging & robotics",
-          "Cold-chain & customs clearance",
-          "Biomedical installation & warranty",
-        ],
-        previewStat: "-28% Cost",
-        previewSub: "On certified medical supply",
-      },
-      {
-        step: "04",
-        title: "Predictable Global Patient Flow",
-        duration: "Phase 4 · Scale",
-        icon: TrendingUp,
-        summary:
-          "Receive pre-screened, travel-ready international patients every week while ArkMED handles logistics and aftercare.",
-        deliverables: [
-          "End-to-end patient travel management",
-          "Automated cross-border billing & escrow",
-          "Quarterly executive growth reviews",
-        ],
-        previewStat: "+34% YoY",
-        previewSub: "Average clinic revenue lift",
-      },
-    ],
-  },
+const TIMELINE_ICONS = {
+  patient: [Stethoscope, Plane, HeartPulse, ShieldCheck],
+  clinic: [BadgeCheck, Megaphone, Package, TrendingUp],
 };
 
 function HowItWorks() {
+  const { t } = useLang();
   const [mode, setMode] = useState("patient");
   const [activeStep, setActiveStep] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const data = TIMELINE_DATA[mode];
+  const data = t.howItWorks[mode];
+  const icons = TIMELINE_ICONS[mode];
   const current = data.steps[activeStep];
-  const CurrentIcon = current.icon;
+  const CurrentIcon = icons[activeStep] || Stethoscope;
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => {
+    const timer = setInterval(() => {
       setActiveStep((s) => (s + 1) % 4);
     }, 4500);
-    return () => clearInterval(t);
+    return () => clearInterval(timer);
   }, [paused, mode]);
 
   const switchMode = (next) => {
@@ -2182,11 +2121,11 @@ function HowItWorks() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
           <Reveal>
-            <Eyebrow>How It Works</Eyebrow>
+            <Eyebrow>{t.howItWorks.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ark-900 sm:text-5xl">
-              Two pathways.{" "}
+              {t.howItWorks.title}{" "}
               <span className="bg-gradient-to-r from-ark-800 via-sea-600 to-sea-400 bg-clip-text text-transparent">
-                Zero friction.
+                {t.howItWorks.titleHighlight}
               </span>
             </h2>
           </Reveal>
@@ -2199,8 +2138,8 @@ function HowItWorks() {
               className="inline-flex rounded-full border border-slate-200/90 bg-slate-100/90 p-1.5 shadow-inner"
             >
               {[
-                { id: "patient", label: "For Patients", icon: HeartPulse },
-                { id: "clinic", label: "For Clinics & Hospitals", icon: Building2 },
+                { id: "patient", label: t.howItWorks.tabPatient, icon: HeartPulse },
+                { id: "clinic", label: t.howItWorks.tabClinic, icon: Building2 },
               ].map((tab) => {
                 const Icon = tab.icon;
                 const active = mode === tab.id;
@@ -2240,7 +2179,7 @@ function HowItWorks() {
           {/* Left: 4-step interactive rail */}
           <div className="flex flex-col justify-between gap-3">
             {data.steps.map((s, idx) => {
-              const Icon = s.icon;
+              const Icon = icons[idx] || Stethoscope;
               const isSelected = activeStep === idx;
               const isDone = activeStep > idx;
               return (
@@ -2284,7 +2223,7 @@ function HowItWorks() {
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-xs font-extrabold uppercase tracking-widest text-sea-600">
-                          Step {s.step}
+                          {t.howItWorks.stepLabel} {s.step}
                         </span>
                         <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
                           <Clock className="h-3 w-3 text-sea-600" />
@@ -2357,7 +2296,7 @@ function HowItWorks() {
                   {/* Deliverables list */}
                   <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
                     <p className="text-xs font-bold uppercase tracking-wider text-sea-300">
-                      Included in this stage
+                      {t.howItWorks.includedLabel}
                     </p>
                     <ul className="mt-3.5 space-y-2.5">
                       {current.deliverables.map((item) => (
@@ -2385,7 +2324,7 @@ function HowItWorks() {
                   </div>
 
                   <Button href="#contact" variant="light">
-                    {mode === "patient" ? "Start My Free Review" : "Partner Your Clinic"}
+                    {mode === "patient" ? t.howItWorks.ctaPatient : t.howItWorks.ctaClinic}
                   </Button>
                 </div>
               </motion.div>
@@ -2401,89 +2340,29 @@ function HowItWorks() {
 /*  Interactive Treatment Cost & Savings Calculator                            */
 /* -------------------------------------------------------------------------- */
 
-const PROCEDURES = [
-  {
-    id: "dental",
-    name: "Full Dental Restoration",
-    sub: "20 Zirconia Crowns / Veneers + Implants",
-    icon: Sparkles,
-    stay: "5 Nights · Istanbul or Antalya",
-    homeCost: 16500,
-    arkCost: 4900,
-    vipAddon: 850,
-    warranty: "Lifetime Implant Warranty",
-  },
-  {
-    id: "hair",
-    name: "Sapphire FUE / DHI Hair",
-    sub: "Maximum Grafts + PRP + Post-Op Kit",
-    icon: Users,
-    stay: "3 Nights · Istanbul VIP Clinic",
-    homeCost: 11800,
-    arkCost: 2950,
-    vipAddon: 550,
-    warranty: "Certified Graft Guarantee",
-  },
-  {
-    id: "ortho",
-    name: "Total Knee or Hip Replacement",
-    sub: "Robotic-Assisted Surgery + Inpatient Rehab",
-    icon: HeartPulse,
-    stay: "7 Nights · JCI Hospital Suite",
-    homeCost: 34000,
-    arkCost: 11200,
-    vipAddon: 1400,
-    warranty: "FDA/CE Approved Prosthetics",
-  },
-  {
-    id: "cardiac",
-    name: "Cardiac Bypass / Valve Care",
-    sub: "Minimally Invasive + ICU + Telemetry",
-    icon: Stethoscope,
-    stay: "10 Nights · Accredited Heart Center",
-    homeCost: 68000,
-    arkCost: 21500,
-    vipAddon: 2100,
-    warranty: "Board-Certified Cardiac Team",
-  },
-  {
-    id: "ivf",
-    name: "IVF & Fertility Package",
-    sub: "Full Cycle + ICSI + Embryo Lab",
-    icon: CalendarCheck,
-    stay: "14 Nights · Boutique Recovery Stay",
-    homeCost: 19500,
-    arkCost: 5800,
-    vipAddon: 1200,
-    warranty: "High-Success Embryology Lab",
-  },
-  {
-    id: "eye",
-    name: "Femto-LASIK / Lens Surgery",
-    sub: "Both Eyes · Blade-Free Laser Vision",
-    icon: ShieldCheck,
-    stay: "2 Nights · Fast-Track Recovery",
-    homeCost: 5400,
-    arkCost: 1750,
-    vipAddon: 450,
-    warranty: "20/20 Vision Care Protocol",
-  },
-];
-
-const REGIONS = [
-  { id: "us", label: "United States", flag: "🇺🇸", symbol: "$", mult: 1.0, rate: 1.0 },
-  { id: "uk", label: "United Kingdom", flag: "🇬🇧", symbol: "£", mult: 0.78, rate: 0.79 },
-  { id: "eu", label: "Europe (EU)", flag: "🇪🇺", symbol: "€", mult: 0.82, rate: 0.92 },
-  { id: "ae", label: "GCC / UAE", flag: "🇦🇪", symbol: "$", mult: 0.88, rate: 1.0 },
-];
+const PROCEDURE_META = {
+  dental: { icon: Sparkles, homeCost: 16500, arkCost: 4900, vipAddon: 850 },
+  hair: { icon: Users, homeCost: 11800, arkCost: 2950, vipAddon: 550 },
+  ortho: { icon: HeartPulse, homeCost: 34000, arkCost: 11200, vipAddon: 1400 },
+  cardiac: { icon: Stethoscope, homeCost: 68000, arkCost: 21500, vipAddon: 2100 },
+  ivf: { icon: CalendarCheck, homeCost: 19500, arkCost: 5800, vipAddon: 1200 },
+  eye: { icon: ShieldCheck, homeCost: 5400, arkCost: 1750, vipAddon: 450 },
+};
 
 function CostCalculator() {
+  const { t } = useLang();
   const [procId, setProcId] = useState("dental");
   const [regionId, setRegionId] = useState("us");
   const [includeVip, setIncludeVip] = useState(true);
 
-  const proc = PROCEDURES.find((p) => p.id === procId) || PROCEDURES[0];
-  const reg = REGIONS.find((r) => r.id === regionId) || REGIONS[0];
+  const procedures = t.calculator.procedures.map((p) => ({
+    ...p,
+    ...(PROCEDURE_META[p.id] || PROCEDURE_META.dental),
+  }));
+  const regions = t.calculator.regions;
+
+  const proc = procedures.find((p) => p.id === procId) || procedures[0];
+  const reg = regions.find((r) => r.id === regionId) || regions[0];
 
   const localCost = Math.round((proc.homeCost * reg.mult * reg.rate) / 50) * 50;
   const arkPackage =
@@ -2511,17 +2390,16 @@ function CostCalculator() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <Eyebrow>Interactive Estimator</Eyebrow>
+            <Eyebrow>{t.calculator.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ark-900 sm:text-5xl">
-              World-class care.{" "}
+              {t.calculator.title}{" "}
               <span className="bg-gradient-to-r from-ark-800 to-sea-500 bg-clip-text text-transparent">
-                A fraction of the cost.
+                {t.calculator.titleHighlight}
               </span>
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="max-w-md text-sm text-slate-600">
-            Compare typical private healthcare prices in your region against
-            ArkMED’s JCI-accredited all-inclusive packages.
+            {t.calculator.subtitle}
           </Reveal>
         </div>
 
@@ -2532,10 +2410,10 @@ function CostCalculator() {
               {/* Step 1: Region selector */}
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <label className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-                  1. Compare against your region
+                  {t.calculator.step1}
                 </label>
                 <div className="flex flex-wrap gap-1.5">
-                  {REGIONS.map((r) => {
+                  {regions.map((r) => {
                     const active = r.id === regionId;
                     return (
                       <button
@@ -2559,10 +2437,10 @@ function CostCalculator() {
               {/* Step 2: Procedure grid */}
               <div className="mt-7">
                 <label className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-                  2. Select medical procedure
+                  {t.calculator.step2}
                 </label>
                 <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-                  {PROCEDURES.map((p) => {
+                  {procedures.map((p) => {
                     const Icon = p.icon;
                     const active = p.id === procId;
                     return (
@@ -2608,10 +2486,10 @@ function CostCalculator() {
                 </span>
                 <div>
                   <p className="text-xs font-bold text-ark-900 sm:text-sm">
-                    Include 5-Star Hotel, VIP Chauffeur & Interpreter
+                    {t.calculator.vipTitle}
                   </p>
                   <p className="text-[11px] text-slate-500">
-                    {proc.stay} · Full airport-to-clinic concierge package
+                    {proc.stay} · {t.calculator.vipSubSuffix}
                   </p>
                 </div>
               </div>
@@ -2647,10 +2525,10 @@ function CostCalculator() {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-sea-200">
                   <Calculator className="h-3.5 w-3.5 text-sea-300" />
-                  Estimated Savings Breakdown
+                  {t.calculator.breakdownBadge}
                 </span>
                 <span className="rounded-full bg-sea-400/20 px-3 py-1 text-xs font-extrabold text-sea-300">
-                  Save {pct}%
+                  {t.calculator.savePrefix} {pct}%
                 </span>
               </div>
 
@@ -2669,12 +2547,13 @@ function CostCalculator() {
                   </motion.span>
                 </AnimatePresence>
                 <span className="text-xs font-semibold uppercase tracking-wider text-sea-300">
-                  estimated savings
+                  {t.calculator.estimatedSavings}
                 </span>
               </div>
               <p className="mt-1 text-xs text-slate-400">
-                For <span className="font-semibold text-white">{proc.name}</span>{" "}
-                compared to private clinics in {reg.label}.
+                {t.calculator.forLabel}{" "}
+                <span className="font-semibold text-white">{proc.name}</span>{" "}
+                {t.calculator.comparedTo} {reg.label}.
               </p>
 
               {/* Visual Bar Comparison */}
@@ -2682,7 +2561,8 @@ function CostCalculator() {
                 <div>
                   <div className="mb-2 flex items-center justify-between text-xs">
                     <span className="flex items-center gap-1.5 text-slate-300">
-                      <span>{reg.flag}</span> Typical {reg.label} Private Cost
+                      <span>{reg.flag}</span> {t.calculator.typicalCostPrefix} {reg.label}{" "}
+                      {t.calculator.typicalCostSuffix}
                     </span>
                     <span className="font-bold tabular-nums text-slate-300 line-through decoration-red-400/80">
                       {fmt(localCost)}
@@ -2697,7 +2577,7 @@ function CostCalculator() {
                   <div className="mb-2 flex items-center justify-between text-xs">
                     <span className="flex items-center gap-1.5 font-bold text-white">
                       <Sparkles className="h-3.5 w-3.5 text-sea-300" />
-                      ArkMED Accredited Package
+                      {t.calculator.arkPackageLabel}
                     </span>
                     <span className="text-base font-extrabold tabular-nums text-sea-300">
                       {fmt(arkPackage)}
@@ -2716,10 +2596,10 @@ function CostCalculator() {
               {/* Included highlights */}
               <div className="mt-6 flex flex-wrap gap-2">
                 {[
-                  "JCI-Accredited Hospital",
+                  t.calculator.jciTag,
                   proc.warranty,
-                  includeVip ? proc.stay : "Procedure Only",
-                  "12-Mo Remote Follow-Up",
+                  includeVip ? proc.stay : t.calculator.procOnlyTag,
+                  t.calculator.followUpTag,
                 ].map((tag) => (
                   <span
                     key={tag}
@@ -2734,10 +2614,10 @@ function CostCalculator() {
 
             <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-[11px] text-slate-400">
-                *Exact quote confirmed after free specialist review.
+                {t.calculator.disclaimer}
               </p>
               <Button href="#contact" variant="light">
-                Lock In This Estimate
+                {t.calculator.cta}
               </Button>
             </div>
           </div>
@@ -2751,87 +2631,30 @@ function CostCalculator() {
 /*  Smart FAQ + Instant AI/Concierge Triage                                    */
 /* -------------------------------------------------------------------------- */
 
-const FAQ_CATEGORIES = [
-  "All",
-  "Visas & Travel",
-  "Pricing & Safety",
-  "Clinic Partners",
-  "Procurement",
-];
-
-const FAQS = [
-  {
-    q: "How does ArkMED vet and select partner hospitals?",
-    a: "Only the top 4% of applicants pass our 50-point clinical audit. Every partner hospital holds JCI or ISO accreditation, board-certified specialist surgeons, English-speaking care teams, and verified international outcome records.",
-    cat: "Pricing & Safety",
-  },
-  {
-    q: "Are flights, 5-star hotels, and medical visas included?",
-    a: "Yes. Our concierge desk handles priority medical visa sponsorship, private airport-to-hospital chauffeur transfers, 5-star recovery-friendly hotel stays, and a 24/7 bedside interpreter in 12+ languages.",
-    cat: "Visas & Travel",
-  },
-  {
-    q: "How are your treatment prices 50–70% lower without compromising quality?",
-    a: "Lower clinical operating costs, favorable exchange rates, and our high-volume direct agreements with flagship hospitals in Türkiye, Europe, and Asia allow us to pass institutional savings directly to patients—using the exact same FDA/CE-certified implants and technology.",
-    cat: "Pricing & Safety",
-  },
-  {
-    q: "What happens after I fly back home?",
-    a: "Your care continues for 12 months after returning home. You receive translated medical records, fit-to-fly clearance, scheduled video follow-ups with your surgeon, and local physician coordination.",
-    cat: "Visas & Travel",
-  },
-  {
-    q: "How can our clinic or hospital join the ArkMED network?",
-    a: "We partner with accredited clinics looking to scale international patient volume or upgrade equipment. After a 2-week clinical audit, we launch multilingual patient acquisition campaigns and manage all cross-border travel and triage.",
-    cat: "Clinic Partners",
-  },
-  {
-    q: "Can hospitals source certified medical equipment through ArkMED?",
-    a: "Yes. Our Medical Procurement division sources diagnostic imaging, surgical robotics, ICU monitors, and certified consumables directly from global OEMs with turnkey customs clearance and biomedical warranty support.",
-    cat: "Procurement",
-  },
-];
-
-const QUICK_PROMPTS = [
-  {
-    q: "How fast do I get a quote?",
-    a: "Within 24–48 hours! Upload your medical records or X-rays and you'll receive 3 itemized treatment plans from JCI-accredited hospitals, plus a free video call with the lead surgeon.",
-  },
-  {
-    q: "Can I bring a companion?",
-    a: "Absolutely! All our 5-star hotel packages and private VIP airport/clinic transfers accommodate a companion or family member at zero extra concierge fee.",
-  },
-  {
-    q: "How do clinics partner with you?",
-    a: "Clinics apply for our 50-point accreditation review. Once approved, we deploy localized marketing across 13+ countries and send pre-screened, travel-ready patients directly to your team.",
-  },
-  {
-    q: "Do you ship medical equipment globally?",
-    a: "Yes—we procure CE/FDA-certified equipment directly from manufacturers and deliver door-to-hospital across EMEA, APAC, and the Americas with full warranty.",
-  },
-];
-
 function SmartFAQ() {
-  const [cat, setCat] = useState("All");
+  const { t } = useLang();
+  const [catIdx, setCatIdx] = useState(0);
   const [openIdx, setOpenIdx] = useState(0);
   const [promptIdx, setPromptIdx] = useState(0);
   const [customQuery, setCustomQuery] = useState("");
-  const [customReply, setCustomReply] = useState(null);
+  const [customQuestion, setCustomQuestion] = useState(null);
 
+  const activeCategory = t.faq.categories[catIdx] || t.faq.categories[0];
   const filtered =
-    cat === "All" ? FAQS : FAQS.filter((f) => f.cat === cat);
+    catIdx === 0
+      ? t.faq.items
+      : t.faq.items.filter((f) => f.cat === activeCategory);
 
   const onAsk = (e) => {
     e.preventDefault();
     if (!customQuery.trim()) return;
-    setCustomReply({
-      q: customQuery.trim(),
-      a: "Our medical coordinator team has logged your question. Click 'Connect with Coordinator' below to receive a personalized answer and treatment breakdown within 15 minutes.",
-    });
+    setCustomQuestion(customQuery.trim());
     setCustomQuery("");
   };
 
-  const activeTriage = customReply || QUICK_PROMPTS[promptIdx];
+  const activeTriage = customQuestion
+    ? { q: customQuestion, a: t.faq.customReplyText }
+    : t.faq.quickPrompts[promptIdx] || t.faq.quickPrompts[0];
 
   return (
     <section id="faq" className="relative overflow-hidden bg-slate-50 py-28">
@@ -2843,11 +2666,11 @@ function SmartFAQ() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <Eyebrow>Smart Triage & FAQ</Eyebrow>
+            <Eyebrow>{t.faq.eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ark-900 sm:text-5xl">
-               Every answer,{" "}
+              {t.faq.title}{" "}
               <span className="bg-gradient-to-r from-ark-800 to-sea-500 bg-clip-text text-transparent">
-                instantly clear.
+                {t.faq.titleHighlight}
               </span>
             </h2>
           </Reveal>
@@ -2855,14 +2678,14 @@ function SmartFAQ() {
           {/* Category filter pills */}
           <Reveal delay={0.1}>
             <div className="flex flex-wrap gap-1.5">
-              {FAQ_CATEGORIES.map((c) => {
-                const active = cat === c;
+              {t.faq.categories.map((c, idx) => {
+                const active = catIdx === idx;
                 return (
                   <button
                     key={c}
                     type="button"
                     onClick={() => {
-                      setCat(c);
+                      setCatIdx(idx);
                       setOpenIdx(0);
                     }}
                     className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
@@ -2894,29 +2717,29 @@ function SmartFAQ() {
                   <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-ark-950 bg-sea-400" />
                 </span>
                 <div>
-                  <p className="text-sm font-bold">Instant Concierge Triage</p>
+                  <p className="text-sm font-bold">{t.faq.triageTitle}</p>
                   <p className="text-[11px] text-sea-300">
-                    12 Languages · Avg. human reply ~3 min
+                    {t.faq.triageSub}
                   </p>
                 </div>
               </div>
               <span className="rounded-full bg-sea-400/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-sea-300">
-                Live
+                {t.faq.liveBadge}
               </span>
             </div>
 
             <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Tap a quick question
+              {t.faq.tapPrompt}
             </p>
             <div className="mt-2.5 flex flex-wrap gap-2">
-              {QUICK_PROMPTS.map((p, idx) => {
-                const active = !customReply && promptIdx === idx;
+              {t.faq.quickPrompts.map((p, idx) => {
+                const active = !customQuestion && promptIdx === idx;
                 return (
                   <button
                     key={p.q}
                     type="button"
                     onClick={() => {
-                      setCustomReply(null);
+                      setCustomQuestion(null);
                       setPromptIdx(idx);
                     }}
                     className={`cursor-pointer rounded-full border px-3 py-1.5 text-left text-xs font-medium transition-all ${
@@ -2956,7 +2779,7 @@ function SmartFAQ() {
                 type="text"
                 value={customQuery}
                 onChange={(e) => setCustomQuery(e.target.value)}
-                placeholder="Ask anything about treatment, travel, or clinics..."
+                placeholder={t.faq.inputPlaceholder}
                 className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-xs text-white outline-none placeholder:text-slate-400 focus:border-sea-400"
               />
               <button
@@ -2969,12 +2792,12 @@ function SmartFAQ() {
             </form>
 
             <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4 text-xs">
-              <span className="text-slate-400">Need a custom medical review?</span>
+              <span className="text-slate-400">{t.faq.needReview}</span>
               <a
                 href="#contact"
                 className="inline-flex items-center gap-1 font-bold text-sea-300 hover:text-white"
               >
-                Connect with Coordinator
+                {t.faq.connectCta}
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </div>
@@ -3067,6 +2890,7 @@ function SmartFAQ() {
 /* -------------------------------------------------------------------------- */
 
 function CTA() {
+  const { t } = useLang();
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
 
@@ -3106,16 +2930,15 @@ function CTA() {
             />
 
             <div className="relative">
-              <Eyebrow light>Get Started</Eyebrow>
+              <Eyebrow light>{t.cta.eyebrow}</Eyebrow>
               <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
-                Ready to transform your{" "}
+                {t.cta.title}{" "}
                 <span className="bg-gradient-to-r from-sea-300 to-sea-200 bg-clip-text text-transparent">
-                  healthcare journey?
+                  {t.cta.titleHighlight}
                 </span>
               </h2>
               <p className="mx-auto mt-5 max-w-md text-slate-400">
-                Let&apos;s talk about how Ark Med can connect you to the care,
-                clients, and capabilities you need.
+                {t.cta.subtitle}
               </p>
 
               <form
@@ -3131,7 +2954,7 @@ function CTA() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@clinic.com"
+                  placeholder={t.cta.placeholder}
                   className="min-w-0 flex-1 bg-transparent px-5 py-3 text-sm text-white outline-none placeholder:text-slate-500"
                 />
                 <motion.button
@@ -3145,7 +2968,7 @@ function CTA() {
                     className="absolute inset-y-0 left-0 w-1/3 -translate-x-full -skew-x-12 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-[320%]"
                   />
                   <span className="relative">
-                    {sent ? "We'll be in touch!" : "Schedule a Consultation"}
+                    {sent ? t.cta.sent : t.cta.button}
                   </span>
                   {sent ? (
                     <Check className="relative h-4 w-4" />
@@ -3157,7 +2980,7 @@ function CTA() {
 
               <p className="mt-5 flex items-center justify-center gap-2 text-xs text-slate-500">
                 <ShieldCheck className="h-3.5 w-3.5 text-sea-400" />
-                No spam. Reply within 24 hours.
+                {t.cta.note}
               </p>
             </div>
           </div>
@@ -3167,13 +2990,8 @@ function CTA() {
   );
 }
 
-const FOOTER_COLS = [
-  { title: "Services", links: ["Medical Tourism", "Consulting", "Marketing", "Procurement"] },
-  { title: "Company", links: ["About", "Network", "Careers", "Contact"] },
-  { title: "Resources", links: ["Blog", "Case Studies", "FAQ", "Support"] },
-];
-
 function Footer() {
+  const { t } = useLang();
   return (
     <footer className="relative overflow-hidden bg-ark-950 text-slate-400">
       <div
@@ -3195,26 +3013,25 @@ function Footer() {
             className="h-36 w-auto"
           />
           <p className="mt-4 max-w-xs text-sm">
-            Bridging borders to make world-class healthcare accessible to
-            everyone.
+            {t.footer.tagline}
           </p>
           <ul className="mt-6 space-y-3 text-sm">
             {[
               [Mail, "hello@arkmed.com"],
               [Phone, "+90 000 000 00 00"],
-              [MapPin, "Istanbul, Türkiye"],
-            ].map(([Icon, t]) => (
-              <li key={t} className="flex items-center gap-3">
+              [MapPin, t.footer.location],
+            ].map(([Icon, text]) => (
+              <li key={text} className="flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-sea-400">
                   <Icon className="h-4 w-4" />
                 </span>
-                {t}
+                {text}
               </li>
             ))}
           </ul>
         </Reveal>
 
-        {FOOTER_COLS.map((c, i) => (
+        {t.footer.cols.map((c, i) => (
           <Reveal key={c.title} delay={0.1 + i * 0.08}>
             <nav aria-label={c.title}>
               <h4 className="text-sm font-semibold text-white">{c.title}</h4>
@@ -3246,10 +3063,10 @@ function Footer() {
 
       <div className="relative border-t border-white/10 py-6">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs sm:flex-row">
-          <p>© 2026 Ark Med Global Health and Travel. All rights reserved.</p>
+          <p>{t.footer.rights}</p>
           <div className="flex items-center gap-6">
-            <a href="#" className="transition-colors hover:text-sea-300">Privacy</a>
-            <a href="#" className="transition-colors hover:text-sea-300">Terms</a>
+            <a href="#" className="transition-colors hover:text-sea-300">{t.footer.privacy}</a>
+            <a href="#" className="transition-colors hover:text-sea-300">{t.footer.terms}</a>
             <motion.a
               href="#"
               aria-label="Back to top"
@@ -3270,19 +3087,41 @@ function Footer() {
 /* -------------------------------------------------------------------------- */
 
 export default function Page() {
+  const [lang, setLangState] = useState("en");
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  const setLang = (next) => {
+    if (!TRANSLATIONS[next]) return;
+    setLangState(next);
+  };
+
+  const langValue = useMemo(
+    () => ({
+      lang,
+      setLang,
+      t: TRANSLATIONS[lang] || TRANSLATIONS.en,
+    }),
+    [lang]
+  );
+
   return (
-    <main className="overflow-x-clip bg-white font-sans antialiased">
-      <Navbar />
-      <Hero />
-      <BentoServices />
-      <Marquee />
-      <HowItWorks />
-      <CostCalculator />
-      <ValueProp />
-      <GlobalReach />
-      <SmartFAQ />
-      <CTA />
-      <Footer />
-    </main>
+    <LangContext.Provider value={langValue}>
+      <main className="overflow-x-clip bg-white font-sans antialiased">
+        <Navbar />
+        <Hero />
+        <BentoServices />
+        <Marquee />
+        <HowItWorks />
+        <CostCalculator />
+        <ValueProp />
+        <GlobalReach />
+        <SmartFAQ />
+        <CTA />
+        <Footer />
+      </main>
+    </LangContext.Provider>
   );
 }
