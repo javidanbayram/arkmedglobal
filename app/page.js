@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import logoMark from "../public/logo-mark.png";
+import logoMarkLight from "../public/logo-mark-light.png";
+import logoFullLight from "../public/logo-full-light.png";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
@@ -548,7 +551,7 @@ function Logo({ light = false, compact = false }) {
           className="absolute -inset-1 rounded-full bg-sea-400/0 blur-md transition-colors duration-300 group-hover:bg-sea-400/25"
         />
         <Image
-          src={light ? "/logo-mark-light.png" : "/logo-mark.png"}
+          src={light ? logoMarkLight : logoMark}
           alt=""
           width={700}
           height={477}
@@ -3185,7 +3188,7 @@ function Footer() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 pb-10 pt-20 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
         <Reveal>
           <Image
-            src="/logo-full-light.png"
+            src={logoFullLight}
             alt="ArkMED Global Health and Travel"
             width={900}
             height={812}
