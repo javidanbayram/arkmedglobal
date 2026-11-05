@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,38073,l=>{l.q("/arkmedglobal/_next/static/media/logo-full-light.2y4w4gbbktevs.png")},40003,l=>{l.q("/arkmedglobal/_next/static/media/logo-mark-light.0yfere734nvub.png")},87500,l=>{l.q("/arkmedglobal/_next/static/media/logo-mark.3sih61lja2-6m.png")}]);
