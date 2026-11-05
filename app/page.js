@@ -1731,7 +1731,8 @@ function buildLandDots(step = 2.3) {
 }
 
 const LOCATIONS = [
-  { id: "tr", country: "Türkiye", flag: "🇹🇷", city: "Istanbul", lon: 29, lat: 41, partners: 48, focus: "Global HQ · Medical Tourism hub", hub: true },
+  { id: "az", country: "Azerbaijan", flag: "🇦🇿", city: "Baku", lon: 49.9, lat: 40.4, partners: 42, focus: "Global HQ · Main Office & Operations Hub", hub: true },
+  { id: "tr", country: "Türkiye", flag: "🇹🇷", city: "Istanbul", lon: 29, lat: 41, partners: 48, focus: "Medical Tourism & JCI Hospital Hub" },
   { id: "us", country: "United States", flag: "🇺🇸", city: "New York", lon: -74, lat: 40.7, partners: 22, focus: "Consulting & Procurement" },
   { id: "br", country: "Brazil", flag: "🇧🇷", city: "São Paulo", lon: -46.6, lat: -23.5, partners: 11, focus: "Patient referrals" },
   { id: "gb", country: "United Kingdom", flag: "🇬🇧", city: "London", lon: -0.1, lat: 51.5, partners: 19, focus: "Healthcare marketing" },
@@ -1805,7 +1806,15 @@ function WorldMap() {
   const { t } = useLang();
   const [active, setActive] = useState(null);
   const landDots = useMemo(() => buildLandDots(), []);
-  const activeLoc = LOCATIONS.find((l) => l.id === active);
+  const localizedLocations = useMemo(
+    () =>
+      LOCATIONS.map((l) => ({
+        ...l,
+        ...(t.network.locations?.[l.id] || {}),
+      })),
+    [t]
+  );
+  const activeLoc = localizedLocations.find((l) => l.id === active);
 
   const onMove = (e) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -1883,7 +1892,7 @@ function WorldMap() {
         </svg>
 
         {/* Interactive markers */}
-        {LOCATIONS.map((l, i) => {
+        {localizedLocations.map((l, i) => {
           const isActive = active === l.id;
           const below = l.py < 40;
           const alignX =
@@ -1970,7 +1979,7 @@ function WorldMap() {
 
       {/* Country chips (synced with dots) */}
       <ul className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-2">
-        {LOCATIONS.map((l) => (
+        {localizedLocations.map((l) => (
           <li key={l.id}>
             <button
               type="button"
@@ -3018,7 +3027,7 @@ function Footer() {
           <ul className="mt-6 space-y-3 text-sm">
             {[
               [Mail, "hello@arkmed.com"],
-              [Phone, "+90 000 000 00 00"],
+              [Phone, "+994 12 000 00 00"],
               [MapPin, t.footer.location],
             ].map(([Icon, text]) => (
               <li key={text} className="flex items-center gap-3">

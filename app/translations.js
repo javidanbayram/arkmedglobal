@@ -13,7 +13,7 @@ export const TRANSLATIONS = {
         { label: "How It Works", href: "#how-it-works" },
         { label: "Calculator", href: "#calculator", badge: "-70%" },
         { label: "Why Us", href: "#why-us" },
-        { label: "Network", href: "#network", badge: "13+" },
+        { label: "Network", href: "#network", badge: "14+" },
         { label: "FAQ", href: "#faq" },
       ],
       services: [
@@ -58,14 +58,14 @@ export const TRANSLATIONS = {
       ctaPrimary: "Explore Services",
       ctaSecondary: "Partner With Us",
       stats: [
-        { to: 40, suffix: "+", label: "Countries" },
-        { to: 225, suffix: "+", label: "Partner clinics" },
-        { to: 40, suffix: "k", label: "Patients guided" },
+        { to: 14, suffix: "+", label: "Countries" },
+        { to: 265, suffix: "+", label: "Partner clinics" },
+        { to: 45, suffix: "k", label: "Patients guided" },
       ],
       chips: [
         { title: "Visa approved", sub: "Within 48 hours" },
         { title: "4.9 / 5 rating", sub: "From 12k+ patients" },
-        { title: "Flight booked", sub: "Istanbul → Dubai" },
+        { title: "Flight booked", sub: "Baku → Istanbul" },
       ],
       dashboard: {
         windowTitle: "Ark Med · Patient Connect",
@@ -248,7 +248,7 @@ export const TRANSLATIONS = {
             title: "Multilingual Acquisition Launch",
             duration: "Phase 2 · Weeks 3–4",
             summary:
-              "Launch compliant, high-intent patient campaigns across 13+ countries backed by our 12-language triage center.",
+              "Launch compliant, high-intent patient campaigns across 14+ countries backed by our 12-language triage center.",
             deliverables: [
               "Localized landing funnels in 12 languages",
               "Pre-qualified patient lead triage",
@@ -322,14 +322,14 @@ export const TRANSLATIONS = {
           id: "dental",
           name: "Full Dental Restoration",
           sub: "20 Zirconia Crowns / Veneers + Implants",
-          stay: "5 Nights · Istanbul or Antalya",
+          stay: "5 Nights · Baku or Istanbul",
           warranty: "Lifetime Implant Warranty",
         },
         {
           id: "hair",
           name: "Sapphire FUE / DHI Hair",
           sub: "Maximum Grafts + PRP + Post-Op Kit",
-          stay: "3 Nights · Istanbul VIP Clinic",
+          stay: "3 Nights · Baku or Istanbul VIP",
           warranty: "Certified Graft Guarantee",
         },
         {
@@ -385,7 +385,7 @@ export const TRANSLATIONS = {
           "Long-term growth programs",
         ],
         cta: "See how we work",
-        stat: { value: "225+", label: "Clinics empowered" },
+        stat: { value: "265+", label: "Clinics empowered" },
       },
     ],
     network: {
@@ -393,16 +393,32 @@ export const TRANSLATIONS = {
       title: "A Truly Global",
       titleHighlight: "Healthcare Network.",
       subtitle:
-        "Connecting hospitals, clinics, and patients across continents with one unified standard of care.",
+        "Headquartered in Baku, Azerbaijan—connecting hospitals, clinics, and patients across 14+ countries with one unified standard of care.",
       stats: [
-        { value: "13", label: "Countries" },
-        { value: "225+", label: "Partner clinics" },
-        { value: "40k", label: "Patients guided" },
+        { value: "14", label: "Countries" },
+        { value: "265+", label: "Partner clinics" },
+        { value: "45k", label: "Patients guided" },
       ],
-      hubBadge: "Hub",
+      hubBadge: "Main HQ",
       partnerClinicsLabel: "Partner clinics",
       tapPrompt: "Tap a dot or country to explore.",
       trustedBy: "Trusted by leading healthcare partners",
+      locations: {
+        az: { country: "Azerbaijan", city: "Baku", focus: "Global HQ · Main Office & Operations Hub" },
+        tr: { country: "Türkiye", city: "Istanbul", focus: "Medical Tourism & JCI Hospital Hub" },
+        us: { country: "United States", city: "New York", focus: "Consulting & Procurement" },
+        br: { country: "Brazil", city: "São Paulo", focus: "Patient referrals" },
+        gb: { country: "United Kingdom", city: "London", focus: "Healthcare marketing" },
+        de: { country: "Germany", city: "Berlin", focus: "Medical equipment sourcing" },
+        eg: { country: "Egypt", city: "Cairo", focus: "Regional clinic network" },
+        ng: { country: "Nigeria", city: "Lagos", focus: "Patient travel programs" },
+        za: { country: "South Africa", city: "Johannesburg", focus: "Hospital partnerships" },
+        ae: { country: "UAE", city: "Dubai", focus: "Gulf patient concierge" },
+        in: { country: "India", city: "Mumbai", focus: "Specialist treatment centers" },
+        sg: { country: "Singapore", city: "Singapore", focus: "Asia-Pacific consulting" },
+        kr: { country: "South Korea", city: "Seoul", focus: "Aesthetic & oncology care" },
+        au: { country: "Australia", city: "Sydney", focus: "Procurement & logistics" },
+      },
     },
     faq: {
       eyebrow: "Smart Triage & FAQ",
@@ -435,7 +451,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "How do clinics partner with you?",
-          a: "Clinics apply for our 50-point accreditation review. Once approved, we deploy localized marketing across 13+ countries and send pre-screened, travel-ready patients directly to your team.",
+          a: "Clinics apply for our 50-point accreditation review. Once approved, we deploy localized marketing across 14+ countries and send pre-screened, travel-ready patients directly to your team.",
         },
         {
           q: "Do you ship medical equipment globally?",
@@ -455,7 +471,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "How are your treatment prices 50–70% lower without compromising quality?",
-          a: "Lower clinical operating costs, favorable exchange rates, and our high-volume direct agreements with flagship hospitals in Türkiye, Europe, and Asia allow us to pass institutional savings directly to patients—using the exact same FDA/CE-certified implants and technology.",
+          a: "Lower clinical operating costs, favorable exchange rates, and our high-volume direct agreements with flagship hospitals in Azerbaijan, Türkiye, Europe, and Asia allow us to pass institutional savings directly to patients—using the exact same FDA/CE-certified implants and technology.",
           cat: "Pricing & Safety",
         },
         {
@@ -489,7 +505,7 @@ export const TRANSLATIONS = {
     footer: {
       tagline:
         "Bridging borders to make world-class healthcare accessible to everyone.",
-      location: "Istanbul, Türkiye",
+      location: "Baku, Azerbaijan",
       cols: [
         {
           title: "Services",
@@ -515,7 +531,7 @@ export const TRANSLATIONS = {
         { label: "Necə İşləyir", href: "#how-it-works" },
         { label: "Kalkulyator", href: "#calculator", badge: "-70%" },
         { label: "Niyə Biz", href: "#why-us" },
-        { label: "Şəbəkə", href: "#network", badge: "13+" },
+        { label: "Şəbəkə", href: "#network", badge: "14+" },
         { label: "FAQ", href: "#faq" },
       ],
       services: [
@@ -560,14 +576,14 @@ export const TRANSLATIONS = {
       ctaPrimary: "Xidmətlərə Baxın",
       ctaSecondary: "Tərəfdaş Olun",
       stats: [
-        { to: 40, suffix: "+", label: "Ölkə" },
-        { to: 225, suffix: "+", label: "Tərəfdaş klinika" },
-        { to: 40, suffix: "k", label: "Yönləndirilən pasiyent" },
+        { to: 14, suffix: "+", label: "Ölkə" },
+        { to: 265, suffix: "+", label: "Tərəfdaş klinika" },
+        { to: 45, suffix: "k", label: "Yönləndirilən pasiyent" },
       ],
       chips: [
         { title: "Viza təsdiqləndi", sub: "48 saat ərzində" },
         { title: "4.9 / 5 reytinq", sub: "12k+ pasiyent rəyi" },
-        { title: "Uçuş bron edildi", sub: "İstanbul → Bakı" },
+        { title: "Uçuş bron edildi", sub: "Bakı → İstanbul" },
       ],
       dashboard: {
         windowTitle: "Ark Med · Pasiyent Portalı",
@@ -750,7 +766,7 @@ export const TRANSLATIONS = {
             title: "Çoxdilli Pasiyent Cəlbi Kampaniyası",
             duration: "Mərhələ 2 · Həftə 3–4",
             summary:
-              "12 dildə danışan çağrı mərkəzimizin dəstəyi ilə 13+ ölkədə hədəfli tibbi marketinq kampaniyaları başladırıq.",
+              "12 dildə danışan çağrı mərkəzimizin dəstəyi ilə 14+ ölkədə hədəfli tibbi marketinq kampaniyaları başladırıq.",
             deliverables: [
               "12 dildə локаllaşdırılmış müraciət kanalları",
               "İlkin tibbi çeşidləmə və pasiyent seçimi",
@@ -824,14 +840,14 @@ export const TRANSLATIONS = {
           id: "dental",
           name: "Tam Stomatoloji Bərpa",
           sub: "20 Zirkon Qapaq / Vinir + İmplantlar",
-          stay: "5 Gecə · İstanbul və ya Antalya",
+          stay: "5 Gecə · Bakı və ya İstanbul",
           warranty: "Ömürlük İmplant Zəmanəti",
         },
         {
           id: "hair",
           name: "Safir FUE / DHI Saç Əkimi",
           sub: "Maksimum Qraft + PRP + Baxım Dəsti",
-          stay: "3 Gecə · İstanbul VIP Klinika",
+          stay: "3 Gecə · Bakı və ya İstanbul VIP",
           warranty: "Sertifikatlı Qraft Zəmanəti",
         },
         {
@@ -887,7 +903,7 @@ export const TRANSLATIONS = {
           "Uzunmüddətli inkişaf proqramları",
         ],
         cta: "Necə işlədiyimizi görün",
-        stat: { value: "225+", label: "Gücləndirilmiş klinika" },
+        stat: { value: "265+", label: "Gücləndirilmiş klinika" },
       },
     ],
     network: {
@@ -895,16 +911,32 @@ export const TRANSLATIONS = {
       title: "Həqiqətən Qlobal",
       titleHighlight: "Səhiyyə Şəbəkəsi.",
       subtitle:
-        "Qitələr üzrə xəstəxanaları, klinikaları və pasiyentləri vahid yüksək tibbi standart ətrafında birləşdiririk.",
+        "Baş ofisi Bakıda (Azərbaycan) yerləşən şəbəkəmiz 14+ ölkədə xəstəxanaları, klinikaları və pasiyentləri vahid yüksək tibbi standart ətrafında birləşdirir.",
       stats: [
-        { value: "13", label: "Ölkə" },
-        { value: "225+", label: "Tərəfdaş klinika" },
-        { value: "40k", label: "Yönləndirilən pasiyent" },
+        { value: "14", label: "Ölkə" },
+        { value: "265+", label: "Tərəfdaş klinika" },
+        { value: "45k", label: "Yönləndirilən pasiyent" },
       ],
-      hubBadge: "Mərkəz",
+      hubBadge: "Baş Ofis",
       partnerClinicsLabel: "Tərəfdaş klinikalar",
       tapPrompt: "Ətraflı məlumat üçün nöqtəyə və ya ölkəyə toxunun.",
       trustedBy: "Aparıcı səhiyyə tərəfdaşlarının seçimi",
+      locations: {
+        az: { country: "Azərbaycan", city: "Bakı", focus: "Baş Ofis · Qlobal İdarəetmə və Konsyerj Mərkəzi" },
+        tr: { country: "Türkiyə", city: "İstanbul", focus: "Tibbi Turizm və JCI Xəstəxana Mərkəzi" },
+        us: { country: "ABŞ", city: "Nyu-York", focus: "Konsaltinq və Tibbi Təchizat" },
+        br: { country: "Braziliya", city: "San-Paulu", focus: "Pasiyent yönləndirmə proqramları" },
+        gb: { country: "Böyük Britaniya", city: "London", focus: "Səhiyyə marketinqi" },
+        de: { country: "Almaniya", city: "Berlin", focus: "Tibbi avadanlıq tədarükü" },
+        eg: { country: "Misir", city: "Qahirə", focus: "Regional klinika şəbəkəsi" },
+        ng: { country: "Nigeriya", city: "Laqos", focus: "Pasiyent səyahət proqramları" },
+        za: { country: "Cənubi Afrika", city: "Yohannesburq", focus: "Xəstəxana tərəfdaşlıqları" },
+        ae: { country: "BƏƏ", city: "Dubay", focus: "Körfəz pasiyent konsyerji" },
+        in: { country: "Hindistan", city: "Mumbay", focus: "İxtisaslaşmış müalicə mərkəzləri" },
+        sg: { country: "Sinqapur", city: "Sinqapur", focus: "Asiya-Sakit okean konsaltinqi" },
+        kr: { country: "Cənubi Koreya", city: "Seul", focus: "Estetik və onkoloji tibb" },
+        au: { country: "Avstraliya", city: "Sidney", focus: "Təchizat və logistika" },
+      },
     },
     faq: {
       eyebrow: "Ağıllı Sorğu və FAQ",
@@ -937,7 +969,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "Klinikalar sizinlə necə əməkdaşlıq edir?",
-          a: "Klinikalar 50 bəndlik akkreditasiya yoxlamamızdan keçir. Təsdiqləndikdən sonra 13+ ölkədə marketinq başladır və müalicəyə hazır pasiyentləri birbaşa klinikanıza yönləndiririk.",
+          a: "Klinikalar 50 bəndlik akkreditasiya yoxlamamızdan keçir. Təsdiqləndikdən sonra 14+ ölkədə marketinq başladır və müalicəyə hazır pasiyentləri birbaşa klinikanıza yönləndiririk.",
         },
         {
           q: "Tibbi avadanlıqları xaricdən çatdırırsınız?",
@@ -957,7 +989,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "Keyfiyyəti itirmədən qiymətlər necə 50–70% daha sərfəlidir?",
-          a: "Türkiyə, Avropa və Asiyanın aparıcı xəstəxanaları ilə yüksək həcmli birbaşa müqavilələrimiz sayəsində eyni FDA/CE sertifikatlı implant və texnologiyalardan istifadə etməklə institusional endirimləri birbaşa pasiyentlərə ötürürük.",
+          a: "Azərbaycan, Türkiyə, Avropa və Asiyanın aparıcı xəstəxanaları ilə yüksək həcmli birbaşa müqavilələrimiz sayəsində eyni FDA/CE sertifikatlı implant və texnologiyalardan istifadə etməklə institusional endirimləri birbaşa pasiyentlərə ötürürük.",
           cat: "Qiymət və Təhlükəsizlik",
         },
         {
@@ -991,7 +1023,7 @@ export const TRANSLATIONS = {
     footer: {
       tagline:
         "Dünya səviyyəli səhiyyəni hər kəs üçün əlçatan etmək məqsədilə sərhədləri aşırıq.",
-      location: "İstanbul, Türkiyə",
+      location: "Bakı, Azərbaycan",
       cols: [
         {
           title: "Xidmətlər",
@@ -1017,7 +1049,7 @@ export const TRANSLATIONS = {
         { label: "Этапы", href: "#how-it-works" },
         { label: "Калькулятор", href: "#calculator", badge: "-70%" },
         { label: "Почему мы", href: "#why-us" },
-        { label: "Сеть", href: "#network", badge: "13+" },
+        { label: "Сеть", href: "#network", badge: "14+" },
         { label: "FAQ", href: "#faq" },
       ],
       services: [
@@ -1035,7 +1067,7 @@ export const TRANSLATIONS = {
         },
         {
           title: "Медмаркетинг",
-          desc: "Привлечение иностранных пациентов из 13+ стран.",
+          desc: "Привлечение иностранных пациентов из 14+ стран.",
           tag: "+248% ROI",
           href: "#services",
         },
@@ -1062,14 +1094,14 @@ export const TRANSLATIONS = {
       ctaPrimary: "Наши услуги",
       ctaSecondary: "Стать партнером",
       stats: [
-        { to: 40, suffix: "+", label: "Стран" },
-        { to: 225, suffix: "+", label: "Клиник-партнеров" },
-        { to: 40, suffix: "k", label: "Пациентов" },
+        { to: 14, suffix: "+", label: "Стран" },
+        { to: 265, suffix: "+", label: "Клиник-партнеров" },
+        { to: 45, suffix: "k", label: "Пациентов" },
       ],
       chips: [
         { title: "Виза одобрена", sub: "За 48 часов" },
         { title: "Рейтинг 4.9 / 5", sub: "12 000+ пациентов" },
-        { title: "Перелет оформлен", sub: "Стамбул → Дубай" },
+        { title: "Перелет оформлен", sub: "Баку → Стамбул" },
       ],
       dashboard: {
         windowTitle: "Ark Med · Портал пациента",
@@ -1252,7 +1284,7 @@ export const TRANSLATIONS = {
             title: "Запуск мультиязычного маркетинга",
             duration: "Этап 2 · Недели 3–4",
             summary:
-              "Запускаем целевые рекламные кампании в 13+ странах при поддержке нашего контакт-центра на 12 языках.",
+              "Запускаем целевые рекламные кампании в 14+ странах при поддержке нашего контакт-центра на 12 языках.",
             deliverables: [
               "Локализованные воронки на 12 языках",
               "Первичный медицинский триаж обращений",
@@ -1326,14 +1358,14 @@ export const TRANSLATIONS = {
           id: "dental",
           name: "Полная реставрация зубов",
           sub: "20 циркониевых коронок / виниров + импланты",
-          stay: "5 ночей · Стамбул или Анталья",
+          stay: "5 ночей · Баку или Стамбул",
           warranty: "Пожизненная гарантия на импланты",
         },
         {
           id: "hair",
           name: "Пересадка волос Sapphire FUE / DHI",
           sub: "Максимум графтов + PRP + набор ухода",
-          stay: "3 ночи · VIP-клиника в Стамбуле",
+          stay: "3 ночи · VIP-клиника Баку / Стамбул",
           warranty: "Сертификат гарантии приживаемости",
         },
         {
@@ -1389,7 +1421,7 @@ export const TRANSLATIONS = {
           "Долгосрочные программы роста клиник",
         ],
         cta: "Узнать, как мы работаем",
-        stat: { value: "225+", label: "Клиник-партнеров" },
+        stat: { value: "265+", label: "Клиник-партнеров" },
       },
     ],
     network: {
@@ -1397,16 +1429,32 @@ export const TRANSLATIONS = {
       title: "По-настоящему мировая",
       titleHighlight: "медицинская сеть.",
       subtitle:
-        "Объединяем госпитали, клиники и пациентов на разных континентах единым стандартом качества.",
+        "Главный офис в Баку (Азербайджан) — объединяем госпитали, клиники и пациентов в 14+ странах единым стандартом качества.",
       stats: [
-        { value: "13", label: "Стран" },
-        { value: "225+", label: "Клиник-партнеров" },
-        { value: "40k", label: "Пациентов" },
+        { value: "14", label: "Стран" },
+        { value: "265+", label: "Клиник-партнеров" },
+        { value: "45k", label: "Пациентов" },
       ],
-      hubBadge: "Хаб",
+      hubBadge: "Главный офис",
       partnerClinicsLabel: "Клиник-партнеров",
       tapPrompt: "Нажмите на точку или страну, чтобы узнать детали.",
       trustedBy: "Нам доверяют ведущие медицинские партнеры",
+      locations: {
+        az: { country: "Азербайджан", city: "Баку", focus: "Главный офис · Глобальный центр управления" },
+        tr: { country: "Турция", city: "Стамбул", focus: "Медтуризм и хаб JCI-госпиталей" },
+        us: { country: "США", city: "Нью-Йорк", focus: "Консалтинг и медснабжение" },
+        br: { country: "Бразилия", city: "Сан-Паулу", focus: "Направление пациентов" },
+        gb: { country: "Великобритания", city: "Лондон", focus: "Медицинский маркетинг" },
+        de: { country: "Германия", city: "Берлин", focus: "Поставки медоборудования" },
+        eg: { country: "Египет", city: "Каир", focus: "Региональная сеть клиник" },
+        ng: { country: "Нигерия", city: "Лагос", focus: "Программы медтуризма" },
+        za: { country: "ЮАР", city: "Йоханнесбург", focus: "Госпитальные партнерства" },
+        ae: { country: "ОАЭ", city: "Дубай", focus: "Консьерж-центр Персидского залива" },
+        in: { country: "Индия", city: "Мумбаи", focus: "Профильные центры лечения" },
+        sg: { country: "Сингапур", city: "Сингапур", focus: "Консалтинг в Азиатско-Тихоокеанском регионе" },
+        kr: { country: "Южная Корея", city: "Сеул", focus: "Эстетическая медицина и онкология" },
+        au: { country: "Австралия", city: "Сидней", focus: "Закупки и логистика" },
+      },
     },
     faq: {
       eyebrow: "Быстрый триаж и FAQ",
@@ -1439,7 +1487,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "Как клинике стать вашим партнером?",
-          a: "Клиника проходит наш аудит по 50 пунктам. После одобрения мы запускаем маркетинг в 13+ странах и направляем предварительно подготовленных пациентов вашей команде.",
+          a: "Клиника проходит наш аудит по 50 пунктам. После одобрения мы запускаем маркетинг в 14+ странах и направляем предварительно подготовленных пациентов вашей команде.",
         },
         {
           q: "Поставляете ли вы медоборудование за рубеж?",
@@ -1459,7 +1507,7 @@ export const TRANSLATIONS = {
         },
         {
           q: "Почему цены на 50–70% ниже без потери качества?",
-          a: "Благодаря более низким операционным расходам и нашим прямым корпоративным контрактам с ведущими госпиталями Турции, Европы и Азии вы получаете те же FDA/CE-импланты и технологии по институциональным тарифам.",
+          a: "Благодаря более низким операционным расходам и нашим прямым корпоративным контрактам с ведущими госпиталями в Азербайджане, Турции, Европе и Азии вы получаете те же FDA/CE-импланты и технологии по институциональным тарифам.",
           cat: "Цены и безопасность",
         },
         {
@@ -1493,7 +1541,7 @@ export const TRANSLATIONS = {
     footer: {
       tagline:
         "Стираем границы, чтобы медицина мирового уровня была доступна каждому.",
-      location: "Стамбул, Турция",
+      location: "Баку, Азербайджан",
       cols: [
         {
           title: "Услуги",
