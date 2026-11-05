@@ -11,7 +11,7 @@ export const TRANSLATIONS = {
       links: [
         { label: "Services", href: "#services", hasMenu: true },
         { label: "How It Works", href: "#how-it-works" },
-        { label: "Calculator", href: "#calculator", badge: "Save 70%" },
+        { label: "Calculator", href: "#calculator", badge: "-70%" },
         { label: "Why Us", href: "#why-us" },
         { label: "Network", href: "#network", badge: "13+" },
         { label: "FAQ", href: "#faq" },
@@ -513,7 +513,7 @@ export const TRANSLATIONS = {
       links: [
         { label: "Xidmətlər", href: "#services", hasMenu: true },
         { label: "Necə İşləyir", href: "#how-it-works" },
-        { label: "Kalkulyator", href: "#calculator", badge: "70% Qənaət" },
+        { label: "Kalkulyator", href: "#calculator", badge: "-70%" },
         { label: "Niyə Biz", href: "#why-us" },
         { label: "Şəbəkə", href: "#network", badge: "13+" },
         { label: "FAQ", href: "#faq" },
@@ -1011,10 +1011,10 @@ export const TRANSLATIONS = {
   /* ------------------------------------------------------------------------ */
   ru: {
     nav: {
-      brandSub: "Глобальная Медицина",
+      brandSub: "Global Health",
       links: [
         { label: "Услуги", href: "#services", hasMenu: true },
-        { label: "Как это работает", href: "#how-it-works" },
+        { label: "Этапы", href: "#how-it-works" },
         { label: "Калькулятор", href: "#calculator", badge: "-70%" },
         { label: "Почему мы", href: "#why-us" },
         { label: "Сеть", href: "#network", badge: "13+" },
@@ -1508,3 +1508,4 @@ export const TRANSLATIONS = {
     },
   },
 };
+

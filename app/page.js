@@ -173,13 +173,13 @@ function LanguageDropdown() {
         aria-label="Select language"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 text-xs font-bold text-ark-900 shadow-xs transition-all hover:border-sea-300 hover:bg-sea-50/80"
+        className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-full border border-slate-200/80 bg-white/85 px-2.5 py-1.5 text-xs font-bold text-ark-900 shadow-xs transition-all hover:border-sea-300 hover:bg-sea-50/80"
       >
-        <Globe2 className="h-3.5 w-3.5 text-sea-600" />
+        <Globe2 className="h-3.5 w-3.5 shrink-0 text-sea-600" />
         <span>{current.flag}</span>
         <span>{current.label}</span>
         <ChevronDown
-          className={`h-3 w-3 text-slate-400 transition-transform duration-200 ${
+          className={`h-3 w-3 shrink-0 text-slate-400 transition-transform duration-200 ${
             open ? "rotate-180 text-sea-600" : ""
           }`}
         />
@@ -299,10 +299,10 @@ function Navbar() {
       <motion.div
         onMouseMove={onNavMove}
         animate={{
-          maxWidth: scrolled ? 1200 : 1320,
+          maxWidth: scrolled ? 1320 : 1400,
         }}
         transition={{ duration: 0.55, ease: EASE }}
-        className={`pointer-events-auto relative mx-auto rounded-3xl transition-all duration-500 [--nx:50%] [--ny:50%] ${
+        className={`pointer-events-auto relative mx-auto w-full rounded-3xl transition-[background-color,border-color,box-shadow] duration-500 [--nx:50%] [--ny:50%] ${
           scrolled
             ? "border border-sea-200/70 bg-white/80 shadow-[0_16px_48px_-12px_rgba(12,38,65,0.18)] backdrop-blur-2xl"
             : "border border-slate-200/70 bg-white/65 shadow-[0_8px_30px_rgba(12,38,65,0.06)] backdrop-blur-xl"
@@ -319,8 +319,8 @@ function Navbar() {
 
         <nav
           aria-label="Primary"
-          className={`relative flex items-center justify-between gap-3 px-4 transition-all duration-500 sm:px-6 ${
-            scrolled ? "py-2.5" : "py-3.5"
+          className={`relative flex items-center justify-between gap-2 px-3.5 transition-all duration-500 sm:px-5 xl:gap-3 ${
+            scrolled ? "py-2.5" : "py-3"
           }`}
         >
           <Logo compact={scrolled} />
@@ -349,7 +349,7 @@ function Navbar() {
                   >
                     <a
                       href={l.href}
-                      className={`relative z-10 flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide transition-colors duration-300 xl:px-3.5 xl:text-[13px] ${
+                      className={`relative z-10 flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1.5 text-xs font-semibold tracking-wide transition-colors duration-300 xl:gap-1.5 xl:px-3 xl:text-[13px] ${
                         isHighlighted
                           ? "text-ark-950"
                           : "text-slate-600 hover:text-ark-900"
@@ -374,7 +374,7 @@ function Navbar() {
                       <span className="whitespace-nowrap">{l.label}</span>
 
                       {l.badge && (
-                        <span className="shrink-0 whitespace-nowrap rounded-full bg-sea-500/15 px-2 py-0.5 text-[10px] font-bold leading-none text-sea-700">
+                        <span className="hidden shrink-0 whitespace-nowrap rounded-full bg-sea-500/15 px-1.5 py-0.5 text-[10px] font-bold leading-none text-sea-700 xl:inline-flex">
                           {l.badge}
                         </span>
                       )}
@@ -460,12 +460,12 @@ function Navbar() {
           </div>
 
           {/* Right actions: Language switcher + Live concierge badge + glowing CTA + mobile toggle */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 xl:gap-2">
             <LanguageDropdown />
 
             <a
               href="#contact"
-              className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-sea-200/80 bg-sea-50/70 px-3 py-1.5 text-[11px] font-semibold text-sea-800 transition-all hover:border-sea-300 hover:bg-sea-100/80 xl:inline-flex"
+              className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-sea-200/80 bg-sea-50/70 px-2.5 py-1.5 text-[11px] font-semibold text-sea-800 transition-all hover:border-sea-300 hover:bg-sea-100/80 2xl:inline-flex"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sea-500 opacity-75" />
@@ -479,7 +479,7 @@ function Navbar() {
                 href="#contact"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="group relative inline-flex shrink-0 items-center gap-2 whitespace-nowrap overflow-hidden rounded-full bg-ark-950 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-ark-950/20 transition-all hover:bg-ark-900 hover:shadow-sea-500/30 sm:px-4 sm:py-2"
+                className="group relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap overflow-hidden rounded-full bg-ark-950 px-3.5 py-2 text-xs font-semibold text-white shadow-lg shadow-ark-950/20 transition-all hover:bg-ark-900 hover:shadow-sea-500/30 xl:gap-2 xl:px-4"
               >
                 <span
                   aria-hidden
@@ -667,7 +667,7 @@ function Logo({ light = false, compact = false }) {
           Ark<span className={light ? "text-sea-300" : "text-sea-500"}>MED</span>
         </span>
         <span
-          className={`mt-0.5 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
+          className={`mt-0.5 whitespace-nowrap text-[8.5px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
             light ? "text-sea-200/70" : "text-slate-400"
           } ${compact ? "hidden sm:block" : "block"}`}
         >
